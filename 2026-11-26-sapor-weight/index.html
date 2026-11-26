@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Body weight in Sapor on nine Claude Code models and two through OpenCode</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* The results pages. One column, the same type and blue as the design page. Classes start with r-. */
+:root {
+  --bg: #f4f6f9; --surface: #ffffff; --ink: #1a2230; --muted: #566174; --line: #d3d9e2; --soft: #eceff4;
+  --accent: #2b59c8;
+  --good: #0aac23; --good-bg: #dff3e5; --good-soft: #9bd9a8;
+  --bad: #dc3c3d; --bad-bg: #fde4e2;
+  --warn-bg: #fff4d4; --warn-line: #c2961c;
+  --c1: #257de0; --c2: #f47230; --c3: #00b894; --c0: #b3bcc9;
+  --sans: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", "Cascadia Mono", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #11151c; --surface: #181e27; --ink: #e3e8f0; --muted: #98a4b6; --line: #2d3644; --soft: #222a36;
+    --accent: #86a8ff;
+    --good: #0aac23; --good-bg: #15301e; --good-soft: #1f6b33;
+    --bad: #eb6263; --bad-bg: #3b1b1a;
+    --warn-bg: #372c0e; --warn-line: #b08a22;
+    --c1: #338ced; --c2: #e76624; --c3: #00a888; --c0: #4a5566;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #11151c; --surface: #181e27; --ink: #e3e8f0; --muted: #98a4b6; --line: #2d3644; --soft: #222a36;
+  --accent: #86a8ff;
+  --good: #0aac23; --good-bg: #15301e; --good-soft: #1f6b33;
+  --bad: #eb6263; --bad-bg: #3b1b1a;
+  --warn-bg: #372c0e; --warn-line: #b08a22;
+  --c1: #338ced; --c2: #e76624; --c3: #00a888; --c0: #4a5566;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 16px; line-height: 1.5;
+  padding-block: 20px 64px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+a { color: var(--accent); }
+code { font-family: var(--mono); font-size: 0.86em; background: var(--soft); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
+.r-page { max-width: 1240px; margin: 0 auto; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+.r-body { padding: 18px 16px 22px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.r-body > * { margin: 0; }
+.r-crumb { font-size: 0.86rem; color: var(--muted); }
+.r-crumb a { color: var(--muted); }
+h1.r-h { font-size: 1.4rem; font-weight: 600; line-height: 1.25; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; text-wrap: balance; }
+.r-hh { font-weight: 500; }
+.r-sub { color: var(--muted); font-size: 0.9rem; max-width: 100ch; }
+.r-body h2 { font-size: 0.82rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); margin-top: 10px; display: flex; flex-wrap: wrap; gap: 8px; align-items: baseline; }
+.r-tag { font-weight: 400; letter-spacing: 0; text-transform: none; font-size: 0.8rem; background: var(--soft); border-radius: 4px; padding: 1px 6px; }
+.r-muted { color: var(--muted); font-size: 0.88em; font-weight: 400; }
+.r-link { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+.r-key { color: var(--muted); font-size: 0.82rem; max-width: 110ch; }
+.r-list { padding-left: 1.2em; display: flex; flex-direction: column; gap: 8px; font-size: 0.92rem; max-width: 100ch; }
+.r-note { border: 1px solid var(--warn-line); background: var(--warn-bg); border-radius: 8px; padding: 8px 12px; font-size: 0.92rem; }
+
+.r-chips { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.r-chip { font-size: 0.82rem; border: 1px solid var(--line); border-radius: 999px; padding: 3px 10px; background: var(--surface); }
+
+.r-scroll { overflow-x: auto; }
+.r-table { border-collapse: collapse; width: 100%; font-size: 0.88rem; }
+.r-table th, .r-table td { text-align: left; padding: 8px 8px; border-bottom: 1px solid var(--line); vertical-align: middle; white-space: nowrap; }
+.r-table thead th { font-size: 0.74rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); vertical-align: bottom; }
+.r-table tbody th { font-weight: 500; }
+.r-table .r-n { text-align: right; font-variant-numeric: tabular-nums; }
+.r-table td.r-wrap { white-space: normal; min-width: 12em; }
+.r-num { font-variant-numeric: tabular-nums; }
+.r-bad { color: var(--bad); font-weight: 600; }
+
+/* the task page's table: three attempt rows per configuration */
+.r-att tbody { border-top: 2px solid var(--line); }
+.r-att tbody:first-of-type { border-top: 0; }
+.r-att th, .r-att td { padding-left: 5px; padding-right: 5px; }
+.r-att .r-cfg { vertical-align: top; padding-top: 12px; }
+.r-att .r-cfg b { font-size: 1rem; font-weight: 600; }
+.r-att .r-cfg span { display: block; }
+.r-att .r-mean b { font-size: 1.25rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+/* percent, count and squares each start at the same place in every row */
+.r-score { display: grid; grid-template-columns: 3.1em 4.2em auto; column-gap: 6px; align-items: center; justify-content: start; font-variant-numeric: tabular-nums; }
+.r-score b { text-align: right; }
+.r-meter { display: grid; grid-template-columns: 1fr; justify-items: end; min-width: 56px; }
+.r-bar { display: block; height: 4px; background: var(--soft); border-radius: 2px; margin-top: 4px; width: 100%; }
+.r-bar i { display: block; height: 100%; background: var(--c1); border-radius: 2px; }
+
+.r-pill { display: inline-flex; gap: 5px; align-items: center; font-size: 0.82rem; font-weight: 600; padding: 2px 9px; border-radius: 999px; border: 1px solid; color: var(--ink); white-space: nowrap; }
+.r-pass { background: var(--good-bg); border-color: var(--good); }
+.r-fail, .r-error { background: var(--bad-bg); border-color: var(--bad); }
+
+.r-strip { display: inline-flex; gap: 4px; vertical-align: middle; }
+.r-sqg { display: inline-flex; gap: 2px; }
+.r-sq { display: inline-block; width: 6px; height: 14px; border-radius: 2px; }
+.r-sq-ok { background: var(--good); }
+.r-sq-no { background: var(--surface); border: 2px solid var(--bad); }
+.r-key .r-sq { vertical-align: -2px; margin: 0 3px 0 6px; }
+.r-sq:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.r-cmd, .r-screen, .r-log { font-family: var(--mono); font-size: 0.78rem; line-height: 1.45; background: var(--soft); border-radius: 8px; padding: 10px 12px; overflow-x: auto; white-space: pre; }
+.r-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; }
+.r-tile { border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.r-tile span { font-size: 0.8rem; color: var(--muted); }
+.r-tile b { font-size: 1.2rem; font-weight: 600; }
+.r-tile em { font-style: normal; font-size: 0.8rem; color: var(--muted); }
+
+.r-tlwrap { display: flex; flex-direction: column; gap: 2px; }
+.r-tl { width: 100%; height: 26px; display: block; }
+.r-tl-sub { height: 14px; }
+.r-tlaxis { position: relative; height: 18px; font-size: 0.76rem; color: var(--muted); font-variant-numeric: tabular-nums; border-top: 1px solid var(--line); margin-top: 3px; }
+.r-tlaxis span { position: absolute; top: 2px; padding-left: 4px; border-left: 1px solid var(--line); }
+.r-axisname { font-size: 0.78rem; color: var(--muted); }
+.r-k-read { fill: var(--c1); background: var(--c1); }
+.r-k-write { fill: var(--c2); background: var(--c2); }
+.r-k-check { fill: var(--c3); background: var(--c3); }
+.r-k-think { fill: var(--c0); background: var(--c0); }
+.r-k-wait { fill: var(--soft); background: var(--soft); stroke: var(--c0); stroke-width: 1; vector-effect: non-scaling-stroke; box-shadow: inset 0 0 0 1px var(--c0); }
+.r-track { fill: var(--line); }
+.r-lanecap { font-size: 0.8rem; margin-top: 6px; overflow-wrap: anywhere; }
+.r-lanecap:first-child { margin-top: 0; }
+.r-legs { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 0.86rem; }
+.r-leg { display: inline-flex; gap: 6px; align-items: center; }
+.r-sw { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+
+.r-checks { display: flex; flex-wrap: wrap; gap: 6px; }
+.r-summary { border-left: 3px solid var(--line); padding-left: 12px; display: flex; flex-direction: column; gap: 8px; font-size: 0.94rem; max-width: 80ch; }
+.r-summary p, .r-summary ul { margin: 0; }
+.r-summary ul { padding-left: 1.2em; }
+.r-links { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 0.92rem; }
+details.r-more { font-size: 0.9rem; }
+details.r-more summary { cursor: pointer; color: var(--muted); }
+details.r-more > * + * { margin-top: 8px; }
+.r-tipbox { position: fixed; z-index: 20; max-width: 280px; background: var(--ink); color: var(--bg); font-size: 0.8rem; padding: 6px 9px; border-radius: 6px; pointer-events: none; }
+
+@media (max-width: 700px) {
+  .r-cards thead { display: none; }
+  .r-cards, .r-cards tbody { display: block; }
+  .r-cards tbody { padding: 6px 0; }
+  .r-cards tr { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 14px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+  .r-cards tbody tr:last-child { border-bottom: 0; }
+  .r-cards th, .r-cards td { border: 0; padding: 0; white-space: normal; text-align: left; }
+  .r-cards .r-n { text-align: left; }
+  .r-cards th.r-cfg, .r-cards .r-wide { grid-column: 1 / -1; }
+  .r-cards .r-cfg span { display: inline; margin-left: 8px; }
+  .r-cards td.r-cfg { grid-column: 1 / -1; }
+  .r-cards td::before { content: attr(data-label); display: block; font-size: 0.7rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); margin-bottom: 2px; }
+  .r-cards .r-score { display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: baseline; }
+  .r-cards .r-score .r-strip { flex-basis: 100%; flex-wrap: wrap; }
+  .r-cards .r-meter { justify-items: start; max-width: 140px; }
+}
+</style>
+<div class="r-page"><div class="r-body">
+<div class="r-crumb"><b>Body weight in Sapor on nine Claude Code models and two through OpenCode</b></div>
+<h1 class="r-h">Body weight in Sapor on nine Claude Code models and two through OpenCode</h1>
+<p class="r-sub">How completely does each model build the feature alone, at effort high, and at what price in time and tokens? One attempt per configuration so far, on the task text and the 29 hidden tests of 2026-11-26, through Claude Code or through OpenCode.</p>
+<div class="r-scroll"><table class="r-table"><thead><tr><th>Task</th><th>Feature</th><th>Type</th><th class="r-n">Configurations</th><th class="r-n">Trials</th><th class="r-n">Score, lowest to highest configuration</th></tr></thead><tbody><tr><th scope="row"><a class="r-link" href="tasks/sapor-weight.html">sapor-weight</a></th><td class="r-wrap">Body weight in Sapor: a morning weigh-in, its 7-day average, a Weight screen, and the weigh-ins for Claude</td><td>large</td><td class="r-n">8</td><td class="r-n">8</td><td class="r-n">41.4% to 100%</td></tr></tbody></table></div>
+<p class="r-key">Made 2026-11-26 23:03. Every trial ran on one PC, in a container whose only way out is the model's endpoint. A trial's score is hidden tests passed over their total. It reads Passed only when every hidden test passed and the repos' existing checks (tests, type check, lint) still pass. Public pages: the names of the hidden tests, why each failed, the code the agents wrote, the transcripts and the task&#x27;s text are left out.</p>
+
+</div></div>
+<div class="r-tipbox" id="tip" hidden></div>
+<script>
+(function () {
+  var tip = document.getElementById('tip');
+  function show(el) {
+    tip.textContent = el.getAttribute('data-tip');
+    tip.hidden = false;
+    var r = el.getBoundingClientRect(), w = tip.offsetWidth;
+    tip.style.left = Math.max(8, Math.min(window.innerWidth - w - 8, r.left + r.width / 2 - w / 2)) + 'px';
+    tip.style.top = (r.top > 60 ? r.top - tip.offsetHeight - 6 : r.bottom + 6) + 'px';
+  }
+  function hide() { tip.hidden = true; }
+  document.querySelectorAll('[data-tip]').forEach(function (el) {
+    el.addEventListener('pointerenter', function () { show(el); });
+    el.addEventListener('pointerleave', hide);
+    el.addEventListener('focus', function () { show(el); });
+    el.addEventListener('blur', hide);
+    el.addEventListener('click', function () { show(el); });
+  });
+  window.addEventListener('scroll', hide, { passive: true });
+})();
+</script>
+</html>
