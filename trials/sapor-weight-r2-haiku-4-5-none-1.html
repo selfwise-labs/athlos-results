@@ -77,14 +77,15 @@ h1.r-h { font-size: 1.4rem; font-weight: 600; line-height: 1.25; display: flex; 
 /* the task page's table: three attempt rows per configuration */
 .r-att tbody { border-top: 2px solid var(--line); }
 .r-att tbody:first-of-type { border-top: 0; }
+.r-att th, .r-att td { padding-left: 5px; padding-right: 5px; }
 .r-att .r-cfg { vertical-align: top; padding-top: 12px; }
 .r-att .r-cfg b { font-size: 1rem; font-weight: 600; }
 .r-att .r-cfg span { display: block; }
 .r-att .r-mean b { font-size: 1.25rem; font-weight: 600; font-variant-numeric: tabular-nums; }
 /* percent, count and squares each start at the same place in every row */
-.r-score { display: grid; grid-template-columns: 3.1em 4.6em auto; column-gap: 6px; align-items: center; justify-content: start; font-variant-numeric: tabular-nums; }
+.r-score { display: grid; grid-template-columns: 3.1em 4.2em auto; column-gap: 6px; align-items: center; justify-content: start; font-variant-numeric: tabular-nums; }
 .r-score b { text-align: right; }
-.r-meter { display: grid; grid-template-columns: 1fr; justify-items: end; min-width: 64px; }
+.r-meter { display: grid; grid-template-columns: 1fr; justify-items: end; min-width: 56px; }
 .r-bar { display: block; height: 4px; background: var(--soft); border-radius: 2px; margin-top: 4px; width: 100%; }
 .r-bar i { display: block; height: 100%; background: var(--c1); border-radius: 2px; }
 
@@ -92,7 +93,7 @@ h1.r-h { font-size: 1.4rem; font-weight: 600; line-height: 1.25; display: flex; 
 .r-pass { background: var(--good-bg); border-color: var(--good); }
 .r-fail, .r-error { background: var(--bad-bg); border-color: var(--bad); }
 
-.r-strip { display: inline-flex; gap: 5px; vertical-align: middle; }
+.r-strip { display: inline-flex; gap: 4px; vertical-align: middle; }
 .r-sqg { display: inline-flex; gap: 2px; }
 .r-sq { display: inline-block; width: 6px; height: 14px; border-radius: 2px; }
 .r-sq-ok { background: var(--good); }
@@ -154,8 +155,8 @@ details.r-more > * + * { margin-top: 8px; }
 </style>
 <div class="r-page"><div class="r-body">
 <div class="r-crumb"><a href="../index.html">Body weight in Sapor on nine models, no method</a> / <a href="../tasks/sapor-weight.html">sapor-weight</a> / <b>Haiku 4.5, effort no setting, method none, attempt 1</b></div>
-<h1 class="r-h"><span class="r-pill r-fail"><span aria-hidden="true">✕</span> Failed</span> <span>Score 0%</span> <span class="r-hh r-muted">12 of 29 hidden tests</span></h1>
-<p class="r-note">Scores 0: this build leaves <b>sapor-types</b> failing, an existing check of the repos. Its hidden tests alone would give 41.4%.</p>
+<h1 class="r-h"><span class="r-pill r-fail"><span aria-hidden="true">✕</span> Failed</span> <span>Score 41.4%</span> <span class="r-hh r-muted">12 of 29 hidden tests</span></h1>
+<p class="r-note">Failed whatever its score: this build leaves <b>sapor-types</b> failing, an existing check of the repos. The score counts the hidden tests only.</p>
 <p class="r-sub">claude-code 2.1.332 · claude-haiku-4-5 (answered as claude-haiku-4-5-20251001) · effort no setting · method none · started 2026-11-26 19:01 UTC</p>
 <pre class="r-cmd">harbor run -p tasks/sapor-weight -a claude-code \
   -m anthropic/claude-haiku-4-5 \

@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Opus 4.6 #1 · sapor-weight</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* The results pages. One column, the same type and blue as the design page. Classes start with r-. */
+:root {
+  --bg: #f4f6f9; --surface: #ffffff; --ink: #1a2230; --muted: #566174; --line: #d3d9e2; --soft: #eceff4;
+  --accent: #2b59c8;
+  --good: #0aac23; --good-bg: #dff3e5; --good-soft: #9bd9a8;
+  --bad: #dc3c3d; --bad-bg: #fde4e2;
+  --warn-bg: #fff4d4; --warn-line: #c2961c;
+  --c1: #257de0; --c2: #f47230; --c3: #00b894; --c0: #b3bcc9;
+  --sans: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", "Cascadia Mono", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #11151c; --surface: #181e27; --ink: #e3e8f0; --muted: #98a4b6; --line: #2d3644; --soft: #222a36;
+    --accent: #86a8ff;
+    --good: #0aac23; --good-bg: #15301e; --good-soft: #1f6b33;
+    --bad: #eb6263; --bad-bg: #3b1b1a;
+    --warn-bg: #372c0e; --warn-line: #b08a22;
+    --c1: #338ced; --c2: #e76624; --c3: #00a888; --c0: #4a5566;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #11151c; --surface: #181e27; --ink: #e3e8f0; --muted: #98a4b6; --line: #2d3644; --soft: #222a36;
+  --accent: #86a8ff;
+  --good: #0aac23; --good-bg: #15301e; --good-soft: #1f6b33;
+  --bad: #eb6263; --bad-bg: #3b1b1a;
+  --warn-bg: #372c0e; --warn-line: #b08a22;
+  --c1: #338ced; --c2: #e76624; --c3: #00a888; --c0: #4a5566;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 16px; line-height: 1.5;
+  padding-block: 20px 64px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+a { color: var(--accent); }
+code { font-family: var(--mono); font-size: 0.86em; background: var(--soft); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
+.r-page { max-width: 1240px; margin: 0 auto; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+.r-body { padding: 18px 16px 22px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.r-body > * { margin: 0; }
+.r-crumb { font-size: 0.86rem; color: var(--muted); }
+.r-crumb a { color: var(--muted); }
+h1.r-h { font-size: 1.4rem; font-weight: 600; line-height: 1.25; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; text-wrap: balance; }
+.r-hh { font-weight: 500; }
+.r-sub { color: var(--muted); font-size: 0.9rem; max-width: 100ch; }
+.r-body h2 { font-size: 0.82rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); margin-top: 10px; display: flex; flex-wrap: wrap; gap: 8px; align-items: baseline; }
+.r-tag { font-weight: 400; letter-spacing: 0; text-transform: none; font-size: 0.8rem; background: var(--soft); border-radius: 4px; padding: 1px 6px; }
+.r-muted { color: var(--muted); font-size: 0.88em; font-weight: 400; }
+.r-link { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+.r-key { color: var(--muted); font-size: 0.82rem; max-width: 110ch; }
+.r-list { padding-left: 1.2em; display: flex; flex-direction: column; gap: 8px; font-size: 0.92rem; max-width: 100ch; }
+.r-note { border: 1px solid var(--warn-line); background: var(--warn-bg); border-radius: 8px; padding: 8px 12px; font-size: 0.92rem; }
+
+.r-chips { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.r-chip { font-size: 0.82rem; border: 1px solid var(--line); border-radius: 999px; padding: 3px 10px; background: var(--surface); }
+
+.r-scroll { overflow-x: auto; }
+.r-table { border-collapse: collapse; width: 100%; font-size: 0.88rem; }
+.r-table th, .r-table td { text-align: left; padding: 8px 8px; border-bottom: 1px solid var(--line); vertical-align: middle; white-space: nowrap; }
+.r-table thead th { font-size: 0.74rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); vertical-align: bottom; }
+.r-table tbody th { font-weight: 500; }
+.r-table .r-n { text-align: right; font-variant-numeric: tabular-nums; }
+.r-table td.r-wrap { white-space: normal; min-width: 12em; }
+.r-num { font-variant-numeric: tabular-nums; }
+.r-bad { color: var(--bad); font-weight: 600; }
+
+/* the task page's table: three attempt rows per configuration */
+.r-att tbody { border-top: 2px solid var(--line); }
+.r-att tbody:first-of-type { border-top: 0; }
+.r-att th, .r-att td { padding-left: 5px; padding-right: 5px; }
+.r-att .r-cfg { vertical-align: top; padding-top: 12px; }
+.r-att .r-cfg b { font-size: 1rem; font-weight: 600; }
+.r-att .r-cfg span { display: block; }
+.r-att .r-mean b { font-size: 1.25rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+/* percent, count and squares each start at the same place in every row */
+.r-score { display: grid; grid-template-columns: 3.1em 4.2em auto; column-gap: 6px; align-items: center; justify-content: start; font-variant-numeric: tabular-nums; }
+.r-score b { text-align: right; }
+.r-meter { display: grid; grid-template-columns: 1fr; justify-items: end; min-width: 56px; }
+.r-bar { display: block; height: 4px; background: var(--soft); border-radius: 2px; margin-top: 4px; width: 100%; }
+.r-bar i { display: block; height: 100%; background: var(--c1); border-radius: 2px; }
+
+.r-pill { display: inline-flex; gap: 5px; align-items: center; font-size: 0.82rem; font-weight: 600; padding: 2px 9px; border-radius: 999px; border: 1px solid; color: var(--ink); white-space: nowrap; }
+.r-pass { background: var(--good-bg); border-color: var(--good); }
+.r-fail, .r-error { background: var(--bad-bg); border-color: var(--bad); }
+
+.r-strip { display: inline-flex; gap: 4px; vertical-align: middle; }
+.r-sqg { display: inline-flex; gap: 2px; }
+.r-sq { display: inline-block; width: 6px; height: 14px; border-radius: 2px; }
+.r-sq-ok { background: var(--good); }
+.r-sq-no { background: var(--surface); border: 2px solid var(--bad); }
+.r-key .r-sq { vertical-align: -2px; margin: 0 3px 0 6px; }
+.r-sq:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.r-cmd, .r-screen, .r-log { font-family: var(--mono); font-size: 0.78rem; line-height: 1.45; background: var(--soft); border-radius: 8px; padding: 10px 12px; overflow-x: auto; white-space: pre; }
+.r-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; }
+.r-tile { border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.r-tile span { font-size: 0.8rem; color: var(--muted); }
+.r-tile b { font-size: 1.2rem; font-weight: 600; }
+.r-tile em { font-style: normal; font-size: 0.8rem; color: var(--muted); }
+
+.r-tlwrap { display: flex; flex-direction: column; gap: 2px; }
+.r-tl { width: 100%; height: 26px; display: block; }
+.r-tl-sub { height: 14px; }
+.r-tlaxis { position: relative; height: 18px; font-size: 0.76rem; color: var(--muted); font-variant-numeric: tabular-nums; border-top: 1px solid var(--line); margin-top: 3px; }
+.r-tlaxis span { position: absolute; top: 2px; padding-left: 4px; border-left: 1px solid var(--line); }
+.r-axisname { font-size: 0.78rem; color: var(--muted); }
+.r-k-read { fill: var(--c1); background: var(--c1); }
+.r-k-write { fill: var(--c2); background: var(--c2); }
+.r-k-check { fill: var(--c3); background: var(--c3); }
+.r-k-think { fill: var(--c0); background: var(--c0); }
+.r-k-wait { fill: var(--soft); background: var(--soft); stroke: var(--c0); stroke-width: 1; vector-effect: non-scaling-stroke; box-shadow: inset 0 0 0 1px var(--c0); }
+.r-track { fill: var(--line); }
+.r-lanecap { font-size: 0.8rem; margin-top: 6px; overflow-wrap: anywhere; }
+.r-lanecap:first-child { margin-top: 0; }
+.r-legs { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 0.86rem; }
+.r-leg { display: inline-flex; gap: 6px; align-items: center; }
+.r-sw { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+
+.r-checks { display: flex; flex-wrap: wrap; gap: 6px; }
+.r-summary { border-left: 3px solid var(--line); padding-left: 12px; display: flex; flex-direction: column; gap: 8px; font-size: 0.94rem; max-width: 80ch; }
+.r-summary p, .r-summary ul { margin: 0; }
+.r-summary ul { padding-left: 1.2em; }
+.r-links { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 0.92rem; }
+details.r-more { font-size: 0.9rem; }
+details.r-more summary { cursor: pointer; color: var(--muted); }
+details.r-more > * + * { margin-top: 8px; }
+.r-tipbox { position: fixed; z-index: 20; max-width: 280px; background: var(--ink); color: var(--bg); font-size: 0.8rem; padding: 6px 9px; border-radius: 6px; pointer-events: none; }
+
+@media (max-width: 700px) {
+  .r-cards thead { display: none; }
+  .r-cards, .r-cards tbody { display: block; }
+  .r-cards tbody { padding: 6px 0; }
+  .r-cards tr { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 14px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+  .r-cards tbody tr:last-child { border-bottom: 0; }
+  .r-cards th, .r-cards td { border: 0; padding: 0; white-space: normal; text-align: left; }
+  .r-cards .r-n { text-align: left; }
+  .r-cards th.r-cfg, .r-cards .r-wide { grid-column: 1 / -1; }
+  .r-cards .r-cfg span { display: inline; margin-left: 8px; }
+  .r-cards td.r-cfg { grid-column: 1 / -1; }
+  .r-cards td::before { content: attr(data-label); display: block; font-size: 0.7rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); margin-bottom: 2px; }
+  .r-cards .r-score { display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: baseline; }
+  .r-cards .r-score .r-strip { flex-basis: 100%; flex-wrap: wrap; }
+  .r-cards .r-meter { justify-items: start; max-width: 140px; }
+}
+</style>
+<div class="r-page"><div class="r-body">
+<div class="r-crumb"><a href="../index.html">Body weight in Sapor on nine models, no method</a> / <a href="../tasks/sapor-weight.html">sapor-weight</a> / <b>Opus 4.6, effort high, method none, attempt 1</b></div>
+<h1 class="r-h"><span class="r-pill r-pass"><span aria-hidden="true">✓</span> Passed</span> <span>Score 100%</span> <span class="r-hh r-muted">29 of 29 hidden tests</span></h1>
+<p class="r-sub">claude-code 2.1.332 · claude-opus-4-6 · effort high · method none · started 2026-11-26 19:35 UTC</p>
+<pre class="r-cmd">harbor run -p tasks/sapor-weight -a claude-code \
+  -m anthropic/claude-opus-4-6 \
+  --ak skip_install=true \
+  --ak reasoning_effort=high \
+  --job-name sapor-weight-r2-opus-4-6-high-1</pre>
+<div class="r-tiles">
+  <div class="r-tile"><span>Agent time</span><b>9 min 02 s</b><em>limit 60 min</em></div>
+  <div class="r-tile"><span>Cost at API prices</span><b>$7.66</b><em>36K tokens out, 10.4M cached in</em></div>
+  <div class="r-tile"><span>Turns</span><b>126</b><em>125 tool calls, 2 subagents</em></div>
+  <div class="r-tile"><span>Written</span><b>713 lines</b><em>16 files, 10 lines removed</em></div>
+</div>
+<p class="r-sub">Whole trial 10 min 44 s: setup 6 s, agent 9 min 02 s, verifier 1 min 28 s · Tokens: 36K out, 10.4M cached in, 160K cache written, 90 other in · Agent ended: success</p>
+<h2>What the agent was doing</h2>
+<div class="r-tlwrap"><div class="r-lanecap"><b>Main agent</b> <span class="r-muted">Opus 4.6</span></div><svg class="r-tl" viewBox="0 0 1000 26" preserveAspectRatio="none" role="img" aria-label="What the main agent was doing, minute by minute"><rect class="r-k-think" x="5.2" y="0" width="1.3" height="26" rx="2"><title>Thinking, planning, other tools, minute 0.0, 2 s</title></rect><rect class="r-k-read" x="8.0" y="0" width="8.6" height="26" rx="2"><title>Reading the repos, minute 0.1, 5 s</title></rect><rect class="r-k-think" x="18.1" y="0" width="1.2" height="26" rx="2"><title>Thinking, planning, other tools, minute 0.2, 0 s</title></rect><rect class="r-k-read" x="18.8" y="0" width="4.1" height="26" rx="2"><title>Reading the repos, minute 0.2, 3 s</title></rect><rect class="r-k-think" x="24.4" y="0" width="2.0" height="26" rx="2"><title>Thinking, planning, other tools, minute 0.2, 2 s</title></rect><rect class="r-k-read" x="27.9" y="0" width="5.8" height="26" rx="2"><title>Reading the repos, minute 0.2, 4 s</title></rect><rect class="r-k-think" x="35.2" y="0" width="1.2" height="26" rx="2"><title>Thinking, planning, other tools, minute 0.3, 0 s</title></rect><rect class="r-k-read" x="36.1" y="0" width="5.9" height="26" rx="2"><title>Reading the repos, minute 0.3, 4 s</title></rect><rect class="r-k-think" x="43.6" y="0" width="1.3" height="26" rx="2"><title>Thinking, planning, other tools, minute 0.4, 2 s</title></rect><rect class="r-k-read" x="46.4" y="0" width="5.8" height="26" rx="2"><title>Reading the repos, minute 0.4, 4 s</title></rect><rect class="r-k-think" x="53.6" y="0" width="1.2" height="26" rx="2"><title>Thinking, planning, other tools, minute 0.5, 1 s</title></rect><rect class="r-k-read" x="54.9" y="0" width="7.1" height="26" rx="2"><title>Reading the repos, minute 0.5, 5 s</title></rect><rect class="r-k-think" x="63.5" y="0" width="1.2" height="26" rx="2"><title>Thinking, planning, other tools, minute 0.6, 1 s</title></rect><rect class="r-k-read" x="64.8" y="0" width="6.5" height="26" rx="2"><title>Reading the repos, minute 0.6, 4 s</title></rect><rect class="r-k-think" x="72.8" y="0" width="1.2" height="26" rx="2"><title>Thinking, planning, other tools, minute 0.7, 1 s</title></rect><rect class="r-k-read" x="74.5" y="0" width="6.7" height="26" rx="2"><title>Reading the repos, minute 0.7, 4 s</title></rect><rect class="r-k-think" x="82.7" y="0" width="1.2" height="26" rx="2"><title>Thinking, planning, other tools, minute 0.7, 1 s</title></rect><rect class="r-k-read" x="84.2" y="0" width="5.4" height="26" rx="2"><title>Reading the repos, minute 0.8, 4 s</title></rect><rect class="r-k-think" x="91.1" y="0" width="1.2" height="26" rx="2"><title>Thinking, planning, other tools, minute 0.8, 1 s</title></rect><rect class="r-k-read" x="92.6" y="0" width="5.0" height="26" rx="2"><title>Reading the repos, minute 0.8, 4 s</title></rect><rect class="r-k-think" x="99.1" y="0" width="1.2" height="26" rx="2"><title>Thinking, planning, other tools, minute 0.9, 1 s</title></rect><rect class="r-k-read" x="100.2" y="0" width="12.3" height="26" rx="2"><title>Reading the repos, minute 0.9, 7 s</title></rect><rect class="r-k-think" x="114.0" y="0" width="1.2" height="26" rx="2"><title>Thinking, planning, other tools, minute 1.0, 1 s</title></rect><rect class="r-k-read" x="115.5" y="0" width="7.3" height="26" rx="2"><title>Reading the repos, minute 1.0, 5 s</title></rect><rect class="r-k-think" x="124.2" y="0" width="1.9" height="26" rx="2"><title>Thinking, planning, other tools, minute 1.1, 2 s</title></rect><rect class="r-k-read" x="127.6" y="0" width="5.0" height="26" rx="2"><title>Reading the repos, minute 1.1, 4 s</title></rect><rect class="r-k-think" x="134.1" y="0" width="1.2" height="26" rx="2"><title>Thinking, planning, other tools, minute 1.2, 0 s</title></rect><rect class="r-k-read" x="134.8" y="0" width="5.6" height="26" rx="2"><title>Reading the repos, minute 1.2, 4 s</title></rect><rect class="r-k-think" x="141.9" y="0" width="1.3" height="26" rx="2"><title>Thinking, planning, other tools, minute 1.3, 2 s</title></rect><rect class="r-k-check" x="144.7" y="0" width="1.2" height="26" rx="2"><title>Running tests and checks, minute 1.3, 1 s</title></rect><rect class="r-k-write" x="146.7" y="0" width="1.2" height="26" rx="2"><title>Writing code, minute 1.3, 1 s</title></rect><rect class="r-k-read" x="147.9" y="0" width="1.7" height="26" rx="2"><title>Reading the repos, minute 1.3, 2 s</title></rect><rect class="r-k-think" x="151.0" y="0" width="1.2" height="26" rx="2"><title>Thinking, planning, other tools, minute 1.4, 1 s</title></rect><rect class="r-k-check" x="153.1" y="0" width="38.7" height="26" rx="2"><title>Running tests and checks, minute 1.4, 22 s</title></rect><rect class="r-k-think" x="193.3" y="0" width="69.8" height="26" rx="2"><title>Thinking, planning, other tools, minute 1.7, 38 s</title></rect><rect class="r-k-read" x="264.6" y="0" width="5.6" height="26" rx="2"><title>Reading the repos, minute 2.4, 4 s</title></rect><rect class="r-k-think" x="271.7" y="0" width="1.2" height="26" rx="2"><title>Thinking, planning, other tools, minute 2.4, 0 s</title></rect><rect class="r-k-read" x="272.4" y="0" width="5.0" height="26" rx="2"><title>Reading the repos, minute 2.4, 4 s</title></rect><rect class="r-k-wait" x="279.0" y="0" width="39.7" height="26" rx="2"><title>Waiting for subagents, minute 2.5, 22 s</title></rect><rect class="r-k-write" x="320.1" y="0" width="1.7" height="26" rx="2"><title>Writing code, minute 2.9, 2 s</title></rect><rect class="r-k-think" x="323.5" y="0" width="14.3" height="26" rx="2"><title>Thinking, planning, other tools, minute 2.9, 8 s</title></rect><rect class="r-k-write" x="339.1" y="0" width="1.5" height="26" rx="2"><title>Writing code, minute 3.0, 2 s</title></rect><rect class="r-k-think" x="342.1" y="0" width="81.9" height="26" rx="2"><title>Thinking, planning, other tools, minute 3.1, 45 s</title></rect><rect class="r-k-write" x="425.3" y="0" width="4.5" height="26" rx="2"><title>Writing code, minute 3.8, 3 s</title></rect><rect class="r-k-think" x="431.3" y="0" width="1.2" height="26" rx="2"><title>Thinking, planning, other tools, minute 3.9, 0 s</title></rect><rect class="r-k-read" x="432.4" y="0" width="7.4" height="26" rx="2"><title>Reading the repos, minute 3.9, 5 s</title></rect><rect class="r-k-think" x="441.3" y="0" width="3.0" height="26" rx="2"><title>Thinking, planning, other tools, minute 4.0, 2 s</title></rect><rect class="r-k-write" x="445.8" y="0" width="25.7" height="26" rx="2"><title>Writing code, minute 4.0, 15 s</title></rect><rect class="r-k-think" x="473.0" y="0" width="1.3" height="26" rx="2"><title>Thinking, planning, other tools, minute 4.2, 2 s</title></rect><rect class="r-k-write" x="475.8" y="0" width="3.9" height="26" rx="2"><title>Writing code, minute 4.3, 3 s</title></rect><rect class="r-k-think" x="481.2" y="0" width="1.2" height="26" rx="2"><title>Thinking, planning, other tools, minute 4.3, 0 s</title></rect><rect class="r-k-read" x="481.9" y="0" width="3.7" height="26" rx="2"><title>Reading the repos, minute 4.3, 3 s</title></rect><rect class="r-k-think" x="487.3" y="0" width="1.5" height="26" rx="2"><title>Thinking, planning, other tools, minute 4.4, 2 s</title></rect><rect class="r-k-write" x="490.3" y="0" width="8.4" height="26" rx="2"><title>Writing code, minute 4.4, 5 s</title></rect><rect class="r-k-think" x="500.2" y="0" width="1.9" height="26" rx="2"><title>Thinking, planning, other tools, minute 4.5, 2 s</title></rect><rect class="r-k-write" x="503.5" y="0" width="11.9" height="26" rx="2"><title>Writing code, minute 4.5, 7 s</title></rect><rect class="r-k-think" x="516.9" y="0" width="5.0" height="26" rx="2"><title>Thinking, planning, other tools, minute 4.6, 4 s</title></rect><rect class="r-k-write" x="523.5" y="0" width="1.2" height="26" rx="2"><title>Writing code, minute 4.7, 1 s</title></rect><rect class="r-k-think" x="526.1" y="0" width="4.5" height="26" rx="2"><title>Thinking, planning, other tools, minute 4.7, 3 s</title></rect><rect class="r-k-write" x="532.2" y="0" width="1.3" height="26" rx="2"><title>Writing code, minute 4.8, 2 s</title></rect><rect class="r-k-think" x="535.0" y="0" width="1.2" height="26" rx="2"><title>Thinking, planning, other tools, minute 4.8, 0 s</title></rect><rect class="r-k-read" x="535.8" y="0" width="3.3" height="26" rx="2"><title>Reading the repos, minute 4.8, 3 s</title></rect><rect class="r-k-write" x="540.6" y="0" width="29.4" height="26" rx="2"><title>Writing code, minute 4.8, 17 s</title></rect><rect class="r-k-think" x="571.5" y="0" width="1.2" height="26" rx="2"><title>Thinking, planning, other tools, minute 5.1, 1 s</title></rect><rect class="r-k-check" x="573.6" y="0" width="13.0" height="26" rx="2"><title>Running tests and checks, minute 5.1, 8 s</title></rect><rect class="r-k-think" x="588.1" y="0" width="1.2" height="26" rx="2"><title>Thinking, planning, other tools, minute 5.3, 1 s</title></rect><rect class="r-k-check" x="589.6" y="0" width="5.4" height="26" rx="2"><title>Running tests and checks, minute 5.3, 4 s</title></rect><rect class="r-k-think" x="596.5" y="0" width="1.2" height="26" rx="2"><title>Thinking, planning, other tools, minute 5.3, 1 s</title></rect><rect class="r-k-check" x="597.8" y="0" width="30.0" height="26" rx="2"><title>Running tests and checks, minute 5.3, 17 s</title></rect><rect class="r-k-think" x="629.2" y="0" width="1.2" height="26" rx="2"><title>Thinking, planning, other tools, minute 5.6, 1 s</title></rect><rect class="r-k-check" x="630.7" y="0" width="8.9" height="26" rx="2"><title>Running tests and checks, minute 5.6, 6 s</title></rect><rect class="r-k-think" x="641.2" y="0" width="1.2" height="26" rx="2"><title>Thinking, planning, other tools, minute 5.7, 1 s</title></rect><rect class="r-k-write" x="643.0" y="0" width="23.8" height="26" rx="2"><title>Writing code, minute 5.8, 14 s</title></rect><rect class="r-k-check" x="668.3" y="0" width="4.1" height="26" rx="2"><title>Running tests and checks, minute 6.0, 3 s</title></rect><rect class="r-k-think" x="674.1" y="0" width="1.2" height="26" rx="2"><title>Thinking, planning, other tools, minute 6.0, 1 s</title></rect><rect class="r-k-check" x="675.2" y="0" width="29.0" height="26" rx="2"><title>Running tests and checks, minute 6.0, 16 s</title></rect><rect class="r-k-think" x="705.8" y="0" width="1.2" height="26" rx="2"><title>Thinking, planning, other tools, minute 6.3, 0 s</title></rect><rect class="r-k-read" x="706.5" y="0" width="6.7" height="26" rx="2"><title>Reading the repos, minute 6.3, 4 s</title></rect><rect class="r-k-think" x="714.7" y="0" width="25.3" height="26" rx="2"><title>Thinking, planning, other tools, minute 6.4, 14 s</title></rect><rect class="r-k-write" x="741.7" y="0" width="2.0" height="26" rx="2"><title>Writing code, minute 6.6, 2 s</title></rect><rect class="r-k-think" x="745.3" y="0" width="1.2" height="26" rx="2"><title>Thinking, planning, other tools, minute 6.7, 1 s</title></rect><rect class="r-k-read" x="746.7" y="0" width="6.5" height="26" rx="2"><title>Reading the repos, minute 6.7, 4 s</title></rect><rect class="r-k-write" x="754.7" y="0" width="1.3" height="26" rx="2"><title>Writing code, minute 6.8, 2 s</title></rect><rect class="r-k-think" x="757.5" y="0" width="1.2" height="26" rx="2"><title>Thinking, planning, other tools, minute 6.8, 1 s</title></rect><rect class="r-k-read" x="759.0" y="0" width="5.0" height="26" rx="2"><title>Reading the repos, minute 6.8, 4 s</title></rect><rect class="r-k-think" x="765.5" y="0" width="1.9" height="26" rx="2"><title>Thinking, planning, other tools, minute 6.9, 2 s</title></rect><rect class="r-k-write" x="768.9" y="0" width="1.3" height="26" rx="2"><title>Writing code, minute 6.9, 2 s</title></rect><rect class="r-k-think" x="771.7" y="0" width="1.2" height="26" rx="2"><title>Thinking, planning, other tools, minute 6.9, 1 s</title></rect><rect class="r-k-read" x="772.8" y="0" width="4.3" height="26" rx="2"><title>Reading the repos, minute 6.9, 3 s</title></rect><rect class="r-k-write" x="778.8" y="0" width="1.3" height="26" rx="2"><title>Writing code, minute 7.0, 2 s</title></rect><rect class="r-k-think" x="781.6" y="0" width="1.2" height="26" rx="2"><title>Thinking, planning, other tools, minute 7.0, 1 s</title></rect><rect class="r-k-check" x="783.4" y="0" width="71.9" height="26" rx="2"><title>Running tests and checks, minute 7.0, 39 s</title></rect><rect class="r-k-think" x="856.8" y="0" width="1.2" height="26" rx="2"><title>Thinking, planning, other tools, minute 7.7, 1 s</title></rect><rect class="r-k-read" x="857.9" y="0" width="1.9" height="26" rx="2"><title>Reading the repos, minute 7.7, 2 s</title></rect><rect class="r-k-think" x="861.3" y="0" width="1.2" height="26" rx="2"><title>Thinking, planning, other tools, minute 7.7, 1 s</title></rect><rect class="r-k-read" x="863.3" y="0" width="2.2" height="26" rx="2"><title>Reading the repos, minute 7.7, 2 s</title></rect><rect class="r-k-think" x="867.2" y="0" width="1.2" height="26" rx="2"><title>Thinking, planning, other tools, minute 7.8, 0 s</title></rect><rect class="r-k-read" x="868.2" y="0" width="30.0" height="26" rx="2"><title>Reading the repos, minute 7.8, 17 s</title></rect><rect class="r-k-think" x="899.6" y="0" width="1.2" height="26" rx="2"><title>Thinking, planning, other tools, minute 8.1, 1 s</title></rect><rect class="r-k-read" x="901.1" y="0" width="26.4" height="26" rx="2"><title>Reading the repos, minute 8.1, 15 s</title></rect><rect class="r-k-think" x="929.1" y="0" width="2.0" height="26" rx="2"><title>Thinking, planning, other tools, minute 8.3, 2 s</title></rect><rect class="r-k-check" x="932.6" y="0" width="66.3" height="26" rx="2"><title>Running tests and checks, minute 8.3, 36 s</title></rect><rect class="r-k-think" x="1000.4" y="0" width="1.2" height="26" rx="2"><title>Thinking, planning, other tools, minute 9.0, 0 s</title></rect></svg><div class="r-lanecap"><b>fork</b> Weight schema, model, repo, tests <span class="r-muted">Opus 4.6 · from minute 2.1 · 1.2 min</span></div><svg class="r-tl r-tl-sub" viewBox="0 0 1000 14" preserveAspectRatio="none" role="img" aria-label="Subagent fork: Weight schema, model, repo, tests"><rect class="r-track" x="0" y="6.5" width="1000" height="1"/><rect class="r-k-think" x="240.4" y="0" width="1.2" height="14" rx="2"><title>Thinking, planning, other tools, minute 2.2, 1 s</title></rect><rect class="r-k-write" x="241.9" y="0" width="36.3" height="14" rx="2"><title>Writing code, minute 2.2, 20 s</title></rect><rect class="r-k-think" x="278.8" y="0" width="36.1" height="14" rx="2"><title>Thinking, planning, other tools, minute 2.5, 20 s</title></rect><rect class="r-k-write" x="315.3" y="0" width="24.2" height="14" rx="2"><title>Writing code, minute 2.8, 13 s</title></rect><rect class="r-k-think" x="340.0" y="0" width="8.3" height="14" rx="2"><title>Thinking, planning, other tools, minute 3.0, 5 s</title></rect><rect class="r-k-write" x="349.2" y="0" width="5.2" height="14" rx="2"><title>Writing code, minute 3.1, 3 s</title></rect><rect class="r-k-think" x="354.9" y="0" width="1.3" height="14" rx="2"><title>Thinking, planning, other tools, minute 3.2, 1 s</title></rect><rect class="r-k-check" x="356.8" y="0" width="14.1" height="14" rx="2"><title>Running tests and checks, minute 3.2, 8 s</title></rect><rect class="r-k-think" x="371.3" y="0" width="1.2" height="14" rx="2"><title>Thinking, planning, other tools, minute 3.3, 0 s</title></rect></svg><div class="r-lanecap"><b>fork</b> MCP weights table schema <span class="r-muted">Opus 4.6 · from minute 2.3 · 0.5 min</span></div><svg class="r-tl r-tl-sub" viewBox="0 0 1000 14" preserveAspectRatio="none" role="img" aria-label="Subagent fork: MCP weights table schema"><rect class="r-track" x="0" y="6.5" width="1000" height="1"/><rect class="r-k-think" x="258.3" y="0" width="1.2" height="14" rx="2"><title>Thinking, planning, other tools, minute 2.3, 1 s</title></rect><rect class="r-k-read" x="259.8" y="0" width="11.7" height="14" rx="2"><title>Reading the repos, minute 2.3, 7 s</title></rect><rect class="r-k-write" x="272.1" y="0" width="2.2" height="14" rx="2"><title>Writing code, minute 2.4, 2 s</title></rect><rect class="r-k-think" x="274.9" y="0" width="1.2" height="14" rx="2"><title>Thinking, planning, other tools, minute 2.5, 1 s</title></rect><rect class="r-k-read" x="276.0" y="0" width="4.4" height="14" rx="2"><title>Reading the repos, minute 2.5, 3 s</title></rect><rect class="r-k-write" x="281.0" y="0" width="2.6" height="14" rx="2"><title>Writing code, minute 2.5, 2 s</title></rect><rect class="r-k-think" x="284.2" y="0" width="1.2" height="14" rx="2"><title>Thinking, planning, other tools, minute 2.5, 1 s</title></rect><rect class="r-k-read" x="285.3" y="0" width="4.6" height="14" rx="2"><title>Reading the repos, minute 2.6, 3 s</title></rect><rect class="r-k-write" x="290.5" y="0" width="3.5" height="14" rx="2"><title>Writing code, minute 2.6, 2 s</title></rect><rect class="r-k-check" x="294.4" y="0" width="14.7" height="14" rx="2"><title>Running tests and checks, minute 2.6, 8 s</title></rect><rect class="r-k-think" x="309.7" y="0" width="1.2" height="14" rx="2"><title>Thinking, planning, other tools, minute 2.8, 0 s</title></rect></svg><div class="r-tlaxis"><span style="left:0.00%">0</span><span style="left:11.17%">1</span><span style="left:22.35%">2</span><span style="left:33.52%">3</span><span style="left:44.69%">4</span><span style="left:55.87%">5</span><span style="left:67.04%">6</span><span style="left:78.21%">7</span><span style="left:89.39%">8</span></div><div class="r-axisname">minutes since the agent started · one lane per subagent, on the same clock</div></div><div class="r-legs"><span class="r-leg r-muted">Main agent:</span><span class="r-leg"><i class="r-sw r-k-read"></i>Reading the repos <b>2.2 min</b> <span class="r-muted">24%</span></span><span class="r-leg"><i class="r-sw r-k-write"></i>Writing code <b>1.3 min</b> <span class="r-muted">14%</span></span><span class="r-leg"><i class="r-sw r-k-check"></i>Running tests and checks <b>2.5 min</b> <span class="r-muted">28%</span></span><span class="r-leg"><i class="r-sw r-k-think"></i>Thinking, planning, other tools <b>2.6 min</b> <span class="r-muted">29%</span></span><span class="r-leg"><i class="r-sw r-k-wait"></i>Waiting for subagents <b>0.4 min</b> <span class="r-muted">4%</span></span></div>
+<h2>Subagents (2)</h2>
+<div class="r-scroll"><table class="r-table"><thead><tr><th>Type</th><th>Asked to</th><th>Model</th><th class="r-n">Started</th><th class="r-n">Ran</th><th>Beside another</th><th class="r-n">Tool calls</th><th class="r-n">Tokens out</th><th class="r-n">Cost</th></tr></thead><tbody><tr><td><code>fork</code></td><td class="r-wrap">Weight schema, model, repo, tests</td><td>Opus 4.6</td><td class="r-n">min 2.1</td><td class="r-n">1.2 min</td><td>yes</td><td class="r-n">9</td><td class="r-n">6K</td><td class="r-n">$0.54</td></tr><tr><td><code>fork</code></td><td class="r-wrap">MCP weights table schema</td><td>Opus 4.6</td><td class="r-n">min 2.3</td><td class="r-n">0.5 min</td><td>yes</td><td class="r-n">8</td><td class="r-n">2K</td><td class="r-n">$0.58</td></tr></tbody></table></div>
+<p class="r-sub">Together: 1.7 min of subagent time inside 9.0 min of agent time, and $1.13 of the trial's $7.66 (15%). No dispatch asked for a model, so each ran on the trial's model. Skills invoked: none. A subagent's cost is its share of its model's tokens in the trial, weighted as the API prices them.</p>
+<h2>Hidden tests, by part of the feature</h2><div class="r-scroll"><table class="r-table" style="width:auto"><thead><tr><th>Part</th><th class="r-n">Passed</th><th></th></tr></thead><tbody><tr><th scope="row">Claude</th><td class="r-n">5 of 5</td><td><span class="r-strip"><span class="r-sqg"><i class="r-sq r-sq-ok" tabindex="0" data-tip="Claude, test 1 — passed"></i><i class="r-sq r-sq-ok" tabindex="0" data-tip="Claude, test 2 — passed"></i><i class="r-sq r-sq-ok" tabindex="0" data-tip="Claude, test 3 — passed"></i><i class="r-sq r-sq-ok" tabindex="0" data-tip="Claude, test 4 — passed"></i><i class="r-sq r-sq-ok" tabindex="0" data-tip="Claude, test 5 — passed"></i></span></span></td></tr><tr><th scope="row">Diary</th><td class="r-n">10 of 10</td><td><span class="r-strip"><span class="r-sqg"><i class="r-sq r-sq-ok" tabindex="0" data-tip="Diary, test 1 — passed"></i><i class="r-sq r-sq-ok" tabindex="0" data-tip="Diary, test 2 — passed"></i><i class="r-sq r-sq-ok" tabindex="0" data-tip="Diary, test 3 — passed"></i><i class="r-sq r-sq-ok" tabindex="0" data-tip="Diary, test 4 — passed"></i><i class="r-sq r-sq-ok" tabindex="0" data-tip="Diary, test 5 — passed"></i><i class="r-sq r-sq-ok" tabindex="0" data-tip="Diary, test 6 — passed"></i><i class="r-sq r-sq-ok" tabindex="0" data-tip="Diary, test 7 — passed"></i><i class="r-sq r-sq-ok" tabindex="0" data-tip="Diary, test 8 — passed"></i><i class="r-sq r-sq-ok" tabindex="0" data-tip="Diary, test 9 — passed"></i><i class="r-sq r-sq-ok" tabindex="0" data-tip="Diary, test 10 — passed"></i></span></span></td></tr><tr><th scope="row">Export</th><td class="r-n">1 of 1</td><td><span class="r-strip"><span class="r-sqg"><i class="r-sq r-sq-ok" tabindex="0" data-tip="Export, test 1 — passed"></i></span></span></td></tr><tr><th scope="row">Library</th><td class="r-n">3 of 3</td><td><span class="r-strip"><span class="r-sqg"><i class="r-sq r-sq-ok" tabindex="0" data-tip="Library, test 1 — passed"></i><i class="r-sq r-sq-ok" tabindex="0" data-tip="Library, test 2 — passed"></i><i class="r-sq r-sq-ok" tabindex="0" data-tip="Library, test 3 — passed"></i></span></span></td></tr><tr><th scope="row">Update</th><td class="r-n">1 of 1</td><td><span class="r-strip"><span class="r-sqg"><i class="r-sq r-sq-ok" tabindex="0" data-tip="Update, test 1 — passed"></i></span></span></td></tr><tr><th scope="row">Weight screen</th><td class="r-n">9 of 9</td><td><span class="r-strip"><span class="r-sqg"><i class="r-sq r-sq-ok" tabindex="0" data-tip="Weight screen, test 1 — passed"></i><i class="r-sq r-sq-ok" tabindex="0" data-tip="Weight screen, test 2 — passed"></i><i class="r-sq r-sq-ok" tabindex="0" data-tip="Weight screen, test 3 — passed"></i><i class="r-sq r-sq-ok" tabindex="0" data-tip="Weight screen, test 4 — passed"></i><i class="r-sq r-sq-ok" tabindex="0" data-tip="Weight screen, test 5 — passed"></i><i class="r-sq r-sq-ok" tabindex="0" data-tip="Weight screen, test 6 — passed"></i><i class="r-sq r-sq-ok" tabindex="0" data-tip="Weight screen, test 7 — passed"></i><i class="r-sq r-sq-ok" tabindex="0" data-tip="Weight screen, test 8 — passed"></i><i class="r-sq r-sq-ok" tabindex="0" data-tip="Weight screen, test 9 — passed"></i></span></span></td></tr></tbody></table></div>
+<h2>Existing checks of the repos</h2><div class="r-checks"><span class="r-pill r-pass"><span aria-hidden="true">✓</span> sapor-test</span><span class="r-pill r-pass"><span aria-hidden="true">✓</span> sapor-types</span><span class="r-pill r-pass"><span aria-hidden="true">✓</span> sapor-lint</span><span class="r-pill r-pass"><span aria-hidden="true">✓</span> mcp-test</span><span class="r-pill r-pass"><span aria-hidden="true">✓</span> mcp-types</span><span class="r-pill r-pass"><span aria-hidden="true">✓</span> backend-test</span><span class="r-pill r-pass"><span aria-hidden="true">✓</span> backend-types</span></div>
+<p class="r-sub">Of the 567 tests in 60 files that the repos had, none was removed, renamed or skipped.</p>
+<h2>Summary <span class="r-tag">written by a model from the log · never part of the score</span></h2><div class="r-summary"><p><b>Approach.</b> The agent first read the three repos and their CLAUDE.md files, then ran each repo's existing tests as a baseline (steps 2 to 18). It forked two subagents: one for the weight data layer (schema, model, repository, tests) and one for the MCP <code>weights</code> table schema (steps 19 to 21). While they ran, it built the Weight UI itself, then wired the repository, routes, Diary row and Library card together (steps 25 to 58). The fork results were reviewed afterward (steps 42, 86 to 87).</p><p><b>What it tried and gave up.</b> The agent removed the <code>ScrollView</code>, <code>Line</code>, <code>WeighIn</code> and <code>weekAverage</code> imports after lint warnings (steps 64 to 69). It rewrote <code>WeighInSheet</code> to split the initial value from the <code>Last …</code> reference after rereading the spec (steps 72 to 75). It also changed the Weight screen's sheet calls to match the new props (steps 76 to 80).</p><p><b>What it checked itself.</b> It ran <code>npm test</code>, <code>tsc --noEmit</code> and <code>npm run lint</code> in <code>sapor-app</code>, and <code>npm test</code> and <code>npm run typecheck</code> in <code>selfwise-mcp</code> and <code>selfwise-backend</code> (steps 18, 34 to 35, 60 to 64, 70 to 71, 81 to 83, 89). The last runs showed sapor-app at 27 of 27 suites and 146 of 146 tests, lint clean, and types clean; selfwise-mcp at 214 of 214 tests and types clean; selfwise-backend at 102 and 144 tests passing with types clean (step 89). All seven existing checks named in the facts were run, and none were left unrun.</p><p><b>Why it scored as it did.</b> Every hidden test and every existing check passed.</p></div><p class="r-muted">Step numbers are those of the trial’s log, which is not public.</p>
+<h2>What it wrote</h2><div class="r-scroll"><table class="r-table" style="width:auto"><thead><tr><th>File</th><th></th><th class="r-n">Added</th><th class="r-n">Removed</th></tr></thead><tbody><tr><td><code>sapor/sapor-app/src/app/weight.tsx</code></td><td>new</td><td class="r-n">+243</td><td class="r-n">−0</td></tr><tr><td><code>sapor/sapor-app/src/features/weight/components/WeighInSheet.tsx</code></td><td>new</td><td class="r-n">+92</td><td class="r-n">−0</td></tr><tr><td><code>sapor/sapor-app/src/features/weight/model.test.ts</code></td><td>new</td><td class="r-n">+88</td><td class="r-n">−0</td></tr><tr><td><code>sapor/sapor-app/src/features/weight/model.ts</code></td><td>new</td><td class="r-n">+63</td><td class="r-n">−0</td></tr><tr><td><code>sapor/sapor-app/src/features/weight/repository.test.ts</code></td><td>new</td><td class="r-n">+57</td><td class="r-n">−0</td></tr><tr><td><code>sapor/sapor-app/src/features/weight/components/WeightRow.tsx</code></td><td>new</td><td class="r-n">+50</td><td class="r-n">−0</td></tr><tr><td><code>sapor/sapor-app/src/features/weight/repository.ts</code></td><td>new</td><td class="r-n">+50</td><td class="r-n">−0</td></tr><tr><td><code>sapor/sapor-app/src/app/index.tsx</code></td><td>changed</td><td class="r-n">+23</td><td class="r-n">−2</td></tr><tr><td><code>sapor/sapor-app/src/app/library/index.tsx</code></td><td>changed</td><td class="r-n">+12</td><td class="r-n">−4</td></tr><tr><td><code>sapor/sapor-app/src/features/weight/schema.ts</code></td><td>new</td><td class="r-n">+14</td><td class="r-n">−0</td></tr><tr><td><code>selfwise-mcp/src/schemas/sapor.ts</code></td><td>changed</td><td class="r-n">+10</td><td class="r-n">−0</td></tr><tr><td><code>sapor/sapor-app/src/db/DbProvider.tsx</code></td><td>changed</td><td class="r-n">+5</td><td class="r-n">−2</td></tr><tr><td><code>sapor/sapor-app/src/db/applySchema.ts</code></td><td>changed</td><td class="r-n">+2</td><td class="r-n">−1</td></tr><tr><td><code>selfwise-mcp/test/schemas.test.ts</code></td><td>changed</td><td class="r-n">+2</td><td class="r-n">−1</td></tr><tr><td><code>sapor/sapor-app/src/app/_layout.tsx</code></td><td>changed</td><td class="r-n">+1</td><td class="r-n">−0</td></tr></tbody></table></div><p class="r-muted">The 15 largest of 16 files; build output and packages are left out.</p>
+<p class="r-key">Public pages: the names of the hidden tests, why each failed, the code the agents wrote, the transcripts and the task&#x27;s text are left out.</p>
+</div></div>
+<div class="r-tipbox" id="tip" hidden></div>
+<script>
+(function () {
+  var tip = document.getElementById('tip');
+  function show(el) {
+    tip.textContent = el.getAttribute('data-tip');
+    tip.hidden = false;
+    var r = el.getBoundingClientRect(), w = tip.offsetWidth;
+    tip.style.left = Math.max(8, Math.min(window.innerWidth - w - 8, r.left + r.width / 2 - w / 2)) + 'px';
+    tip.style.top = (r.top > 60 ? r.top - tip.offsetHeight - 6 : r.bottom + 6) + 'px';
+  }
+  function hide() { tip.hidden = true; }
+  document.querySelectorAll('[data-tip]').forEach(function (el) {
+    el.addEventListener('pointerenter', function () { show(el); });
+    el.addEventListener('pointerleave', hide);
+    el.addEventListener('focus', function () { show(el); });
+    el.addEventListener('blur', hide);
+    el.addEventListener('click', function () { show(el); });
+  });
+  window.addEventListener('scroll', hide, { passive: true });
+})();
+</script>
+</html>
