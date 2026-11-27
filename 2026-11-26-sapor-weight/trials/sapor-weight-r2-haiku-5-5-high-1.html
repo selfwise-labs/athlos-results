@@ -59,6 +59,7 @@ h1.r-h { font-size: 1.4rem; font-weight: 600; line-height: 1.25; display: flex; 
 .r-link { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
 .r-key { color: var(--muted); font-size: 0.82rem; max-width: 110ch; }
 .r-list { padding-left: 1.2em; display: flex; flex-direction: column; gap: 8px; font-size: 0.92rem; max-width: 100ch; }
+.r-under { display: block; margin-top: 3px; }
 .r-note { border: 1px solid var(--warn-line); background: var(--warn-bg); border-radius: 8px; padding: 8px 12px; font-size: 0.92rem; }
 
 .r-chips { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
@@ -161,6 +162,7 @@ details.r-more > * + * { margin-top: 8px; }
   -m anthropic/claude-haiku-5-5 \
   --ak skip_install=true \
   --ak reasoning_effort=high \
+  --allow-agent-host api.anthropic.com \
   --job-name sapor-weight-r2-haiku-5-5-high-1</pre>
 <div class="r-tiles">
   <div class="r-tile"><span>Agent time</span><b>6 min 06 s</b><em>limit 60 min</em></div>
