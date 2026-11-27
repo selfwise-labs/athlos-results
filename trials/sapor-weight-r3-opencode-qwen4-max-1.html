@@ -99,6 +99,12 @@ h1.r-h { font-size: 1.4rem; font-weight: 600; line-height: 1.25; display: flex; 
 .r-sq { display: inline-block; width: 6px; height: 14px; border-radius: 2px; }
 .r-sq-ok { background: var(--good); }
 .r-sq-no { background: var(--surface); border: 2px solid var(--bad); }
+.r-sqt { width: 14px; }
+.r-sq-part { background: var(--warn-line); }
+.r-sq-none { background: var(--surface); border: 1px dashed var(--muted); }
+.r-tasks { display: inline-flex; gap: 8px; align-items: center; white-space: nowrap; }
+.r-front th.r-cfg { text-align: left; }
+.r-feature { min-width: 300px; }
 .r-key .r-sq { vertical-align: -2px; margin: 0 3px 0 6px; }
 .r-sq:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
@@ -155,7 +161,7 @@ details.r-more > * + * { margin-top: 8px; }
 }
 </style>
 <div class="r-page"><div class="r-body">
-<div class="r-crumb"><a href="../index.html">Body weight in Sapor on nine Claude Code models and two through OpenCode</a> / <a href="../tasks/sapor-weight.html">sapor-weight</a> / <b>Qwen4 Max, no effort setting, method none, attempt 1</b></div>
+<div class="r-crumb"><a href="../index.html">Athlos</a> / <a href="../tasks/sapor-weight.html">sapor-weight</a> / <b>Qwen4 Max, no effort setting, method none, attempt 1</b></div>
 <h1 class="r-h"><span class="r-pill r-pass"><span aria-hidden="true">✓</span> Passed</span> <span>Score 100%</span> <span class="r-hh r-muted">29 of 29 hidden tests</span></h1>
 <p class="r-sub">opencode-v2 2.4.2 · qwen4-max · no effort setting · method none · started 2026-11-26 21:44 UTC</p>
 <pre class="r-cmd">harbor run -p tasks/sapor-weight -a opencode-v2 \

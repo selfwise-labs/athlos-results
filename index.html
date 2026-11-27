@@ -2,7 +2,7 @@
 <html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Athlos - runs</title>
+<title>Athlos</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
 /* The results pages. One column, the same type and blue as the design page. Classes start with r-. */
@@ -99,6 +99,12 @@ h1.r-h { font-size: 1.4rem; font-weight: 600; line-height: 1.25; display: flex; 
 .r-sq { display: inline-block; width: 6px; height: 14px; border-radius: 2px; }
 .r-sq-ok { background: var(--good); }
 .r-sq-no { background: var(--surface); border: 2px solid var(--bad); }
+.r-sqt { width: 14px; }
+.r-sq-part { background: var(--warn-line); }
+.r-sq-none { background: var(--surface); border: 1px dashed var(--muted); }
+.r-tasks { display: inline-flex; gap: 8px; align-items: center; white-space: nowrap; }
+.r-front th.r-cfg { text-align: left; }
+.r-feature { min-width: 300px; }
 .r-key .r-sq { vertical-align: -2px; margin: 0 3px 0 6px; }
 .r-sq:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
@@ -156,10 +162,88 @@ details.r-more > * + * { margin-top: 8px; }
 </style>
 <div class="r-page"><div class="r-body">
 <div class="r-crumb"><b>Athlos</b></div>
-<h1 class="r-h">Runs</h1>
-<p class="r-sub">Every run, on the task text it was measured against.</p>
-<div class="r-scroll"><table class="r-table"><thead><tr><th>Run</th><th>Tasks</th><th class="r-n">Trials</th><th class="r-n">Score, lowest to highest configuration</th><th>Method</th></tr></thead><tbody><tr><th scope="row"><a class="r-link" href="2026-11-26-sapor-weight/index.html">Body weight in Sapor on nine Claude Code models and two through OpenCode</a></th><td class="r-wrap">sapor-weight</td><td class="r-n">10</td><td class="r-n">41.4% to 100%</td><td class="r-wrap">none</td></tr></tbody></table></div>
-<p class="r-key">Made 2026-11-27 08:42. A trial's score is hidden tests passed over their total. It reads Passed only when every hidden test passed and the repos' existing checks (tests, type check, lint) still pass. Public pages: the names of the hidden tests, why each failed, the code the agents wrote, the transcripts and the task's text are left out.</p>
+<h1 class="r-h">Coding agents on features of real products</h1>
+<p class="r-sub">Each task is a feature cut out of a product’s code. A configuration builds it again alone, and tests it never saw decide the score. 1 task, 10 configurations, 11 trials so far.</p>
+<p class="r-note">With 1 task this page shows how the results read, not which configuration is better: a ranking needs several tasks.</p>
+<h2>Every configuration, over all tasks</h2>
+<p class="r-sub">Ordered by score, then by cost, then by agent time.</p>
+<div class="r-scroll"><table class="r-table r-cards r-att r-front">
+<thead><tr><th>Configuration</th><th>Score<br>mean over its tasks</th><th>Tasks run</th><th class="r-n">Tasks passed<br>in every attempt</th><th class="r-n">Attempts run</th><th class="r-n">Cost per task</th><th class="r-n">Agent time per task</th></tr></thead>
+<tbody><tr><th scope="row" class="r-cfg"><b>DeepSeek V4.1 Flash</b><span class="r-muted">OpenCode 2.4.2</span><span class="r-muted">no effort setting · method none</span></th>
+<td data-label="Score, mean over its tasks" class="r-mean"><b>100%</b></td>
+<td data-label="Tasks run"><span class="r-tasks"><span>1 of 1</span><span class="r-strip"><a class="r-sq r-sqt r-sq-ok" href="tasks/sapor-weight.html" aria-label="sapor-weight: 100% over 2 of 3 attempts" data-tip="sapor-weight: 100% over 2 of 3 attempts"></a></span></span></td>
+<td data-label="Tasks passed in every attempt" class="r-n">1 of 1</td>
+<td data-label="Attempts run" class="r-n">2 of 3</td>
+<td data-label="Cost per task" class="r-n"><span class="r-meter"><span class="r-num">$0.12</span><span class="r-bar"><i style="width:2%"></i></span></span></td>
+<td data-label="Agent time per task" class="r-n"><span class="r-meter"><span class="r-num">7.4 min</span><span class="r-bar"><i style="width:45%"></i></span></span></td>
+</tr><tr><th scope="row" class="r-cfg"><b>Haiku 5.5</b><span class="r-muted">Claude Code 2.1.332</span><span class="r-muted">effort high · method none</span></th>
+<td data-label="Score, mean over its tasks" class="r-mean"><b>100%</b></td>
+<td data-label="Tasks run"><span class="r-tasks"><span>1 of 1</span><span class="r-strip"><a class="r-sq r-sqt r-sq-ok" href="tasks/sapor-weight.html" aria-label="sapor-weight: 100% over 1 of 3 attempts" data-tip="sapor-weight: 100% over 1 of 3 attempts"></a></span></span></td>
+<td data-label="Tasks passed in every attempt" class="r-n">1 of 1</td>
+<td data-label="Attempts run" class="r-n">1 of 3</td>
+<td data-label="Cost per task" class="r-n"><span class="r-meter"><span class="r-num">$0.53</span><span class="r-bar"><i style="width:7%"></i></span></span></td>
+<td data-label="Agent time per task" class="r-n"><span class="r-meter"><span class="r-num">6.1 min</span><span class="r-bar"><i style="width:37%"></i></span></span></td>
+</tr><tr><th scope="row" class="r-cfg"><b>Kimi K3.1 Pro</b><span class="r-muted">OpenCode 2.4.2</span><span class="r-muted">no effort setting · method none</span></th>
+<td data-label="Score, mean over its tasks" class="r-mean"><b>100%</b></td>
+<td data-label="Tasks run"><span class="r-tasks"><span>1 of 1</span><span class="r-strip"><a class="r-sq r-sqt r-sq-ok" href="tasks/sapor-weight.html" aria-label="sapor-weight: 100% over 1 of 3 attempts" data-tip="sapor-weight: 100% over 1 of 3 attempts"></a></span></span></td>
+<td data-label="Tasks passed in every attempt" class="r-n">1 of 1</td>
+<td data-label="Attempts run" class="r-n">1 of 3</td>
+<td data-label="Cost per task" class="r-n"><span class="r-meter"><span class="r-num">$1.40</span><span class="r-bar"><i style="width:18%"></i></span></span></td>
+<td data-label="Agent time per task" class="r-n"><span class="r-meter"><span class="r-num">6.4 min</span><span class="r-bar"><i style="width:39%"></i></span></span></td>
+</tr><tr><th scope="row" class="r-cfg"><b>Qwen4 Max</b><span class="r-muted">OpenCode 2.4.2</span><span class="r-muted">no effort setting · method none</span></th>
+<td data-label="Score, mean over its tasks" class="r-mean"><b>100%</b></td>
+<td data-label="Tasks run"><span class="r-tasks"><span>1 of 1</span><span class="r-strip"><a class="r-sq r-sqt r-sq-ok" href="tasks/sapor-weight.html" aria-label="sapor-weight: 100% over 1 of 3 attempts" data-tip="sapor-weight: 100% over 1 of 3 attempts"></a></span></span></td>
+<td data-label="Tasks passed in every attempt" class="r-n">1 of 1</td>
+<td data-label="Attempts run" class="r-n">1 of 3</td>
+<td data-label="Cost per task" class="r-n"><span class="r-meter"><span class="r-num">$1.59</span><span class="r-bar"><i style="width:21%"></i></span></span></td>
+<td data-label="Agent time per task" class="r-n"><span class="r-meter"><span class="r-num">14.0 min</span><span class="r-bar"><i style="width:85%"></i></span></span></td>
+</tr><tr><th scope="row" class="r-cfg"><b>Sonnet 5.5</b><span class="r-muted">Claude Code 2.1.332</span><span class="r-muted">effort high · method none</span></th>
+<td data-label="Score, mean over its tasks" class="r-mean"><b>100%</b></td>
+<td data-label="Tasks run"><span class="r-tasks"><span>1 of 1</span><span class="r-strip"><a class="r-sq r-sqt r-sq-ok" href="tasks/sapor-weight.html" aria-label="sapor-weight: 100% over 1 of 3 attempts" data-tip="sapor-weight: 100% over 1 of 3 attempts"></a></span></span></td>
+<td data-label="Tasks passed in every attempt" class="r-n">1 of 1</td>
+<td data-label="Attempts run" class="r-n">1 of 3</td>
+<td data-label="Cost per task" class="r-n"><span class="r-meter"><span class="r-num">$2.11</span><span class="r-bar"><i style="width:27%"></i></span></span></td>
+<td data-label="Agent time per task" class="r-n"><span class="r-meter"><span class="r-num">9.6 min</span><span class="r-bar"><i style="width:58%"></i></span></span></td>
+</tr><tr><th scope="row" class="r-cfg"><b>Opus 5.5</b><span class="r-muted">Claude Code 2.1.332</span><span class="r-muted">effort high · method none</span></th>
+<td data-label="Score, mean over its tasks" class="r-mean"><b>100%</b></td>
+<td data-label="Tasks run"><span class="r-tasks"><span>1 of 1</span><span class="r-strip"><a class="r-sq r-sqt r-sq-ok" href="tasks/sapor-weight.html" aria-label="sapor-weight: 100% over 1 of 3 attempts" data-tip="sapor-weight: 100% over 1 of 3 attempts"></a></span></span></td>
+<td data-label="Tasks passed in every attempt" class="r-n">1 of 1</td>
+<td data-label="Attempts run" class="r-n">1 of 3</td>
+<td data-label="Cost per task" class="r-n"><span class="r-meter"><span class="r-num">$3.30</span><span class="r-bar"><i style="width:43%"></i></span></span></td>
+<td data-label="Agent time per task" class="r-n"><span class="r-meter"><span class="r-num">8.4 min</span><span class="r-bar"><i style="width:51%"></i></span></span></td>
+</tr><tr><th scope="row" class="r-cfg"><b>Sonnet 4.6</b><span class="r-muted">Claude Code 2.1.332</span><span class="r-muted">effort high · method none</span></th>
+<td data-label="Score, mean over its tasks" class="r-mean"><b>100%</b></td>
+<td data-label="Tasks run"><span class="r-tasks"><span>1 of 1</span><span class="r-strip"><a class="r-sq r-sqt r-sq-ok" href="tasks/sapor-weight.html" aria-label="sapor-weight: 100% over 1 of 3 attempts" data-tip="sapor-weight: 100% over 1 of 3 attempts"></a></span></span></td>
+<td data-label="Tasks passed in every attempt" class="r-n">1 of 1</td>
+<td data-label="Attempts run" class="r-n">1 of 3</td>
+<td data-label="Cost per task" class="r-n"><span class="r-meter"><span class="r-num">$4.59</span><span class="r-bar"><i style="width:60%"></i></span></span></td>
+<td data-label="Agent time per task" class="r-n"><span class="r-meter"><span class="r-num">14.0 min</span><span class="r-bar"><i style="width:85%"></i></span></span></td>
+</tr><tr><th scope="row" class="r-cfg"><b>Sonnet 5</b><span class="r-muted">Claude Code 2.1.332</span><span class="r-muted">effort high · method none</span></th>
+<td data-label="Score, mean over its tasks" class="r-mean"><b>100%</b></td>
+<td data-label="Tasks run"><span class="r-tasks"><span>1 of 1</span><span class="r-strip"><a class="r-sq r-sqt r-sq-ok" href="tasks/sapor-weight.html" aria-label="sapor-weight: 100% over 1 of 3 attempts" data-tip="sapor-weight: 100% over 1 of 3 attempts"></a></span></span></td>
+<td data-label="Tasks passed in every attempt" class="r-n">1 of 1</td>
+<td data-label="Attempts run" class="r-n">1 of 3</td>
+<td data-label="Cost per task" class="r-n"><span class="r-meter"><span class="r-num">$6.59</span><span class="r-bar"><i style="width:86%"></i></span></span></td>
+<td data-label="Agent time per task" class="r-n"><span class="r-meter"><span class="r-num">16.4 min</span><span class="r-bar"><i style="width:100%"></i></span></span></td>
+</tr><tr><th scope="row" class="r-cfg"><b>Opus 4.6</b><span class="r-muted">Claude Code 2.1.332</span><span class="r-muted">effort high · method none</span></th>
+<td data-label="Score, mean over its tasks" class="r-mean"><b>100%</b></td>
+<td data-label="Tasks run"><span class="r-tasks"><span>1 of 1</span><span class="r-strip"><a class="r-sq r-sqt r-sq-ok" href="tasks/sapor-weight.html" aria-label="sapor-weight: 100% over 1 of 3 attempts" data-tip="sapor-weight: 100% over 1 of 3 attempts"></a></span></span></td>
+<td data-label="Tasks passed in every attempt" class="r-n">1 of 1</td>
+<td data-label="Attempts run" class="r-n">1 of 3</td>
+<td data-label="Cost per task" class="r-n"><span class="r-meter"><span class="r-num">$7.66</span><span class="r-bar"><i style="width:100%"></i></span></span></td>
+<td data-label="Agent time per task" class="r-n"><span class="r-meter"><span class="r-num">9.0 min</span><span class="r-bar"><i style="width:55%"></i></span></span></td>
+</tr><tr><th scope="row" class="r-cfg"><b>Haiku 4.5</b><span class="r-muted">Claude Code 2.1.332</span><span class="r-muted">no effort setting · method none</span></th>
+<td data-label="Score, mean over its tasks" class="r-mean"><b>41.4%</b></td>
+<td data-label="Tasks run"><span class="r-tasks"><span>1 of 1</span><span class="r-strip"><a class="r-sq r-sqt r-sq-part" href="tasks/sapor-weight.html" aria-label="sapor-weight: 41.4% over 1 of 3 attempts" data-tip="sapor-weight: 41.4% over 1 of 3 attempts"></a></span></span></td>
+<td data-label="Tasks passed in every attempt" class="r-n">0 of 1</td>
+<td data-label="Attempts run" class="r-n">1 of 3</td>
+<td data-label="Cost per task" class="r-n"><span class="r-meter"><span class="r-num">$0.91</span><span class="r-bar"><i style="width:12%"></i></span></span></td>
+<td data-label="Agent time per task" class="r-n"><span class="r-meter"><span class="r-num">5.0 min</span><span class="r-bar"><i style="width:30%"></i></span></span></td>
+</tr></tbody></table></div>
+<p class="r-key"><b>Configuration</b>: a model, the harness it ran in, its effort and its method. A method is what the harness was given to work with: plugins, skills, instructions. With method none it is the harness as installed · <b>Score</b>: per task, hidden tests passed over their total, averaged over the attempts; then averaged over the tasks the configuration ran, each task counting once · <b>Tasks run</b>: one square per task, press it for the task’s page: <i class="r-sq r-sqt r-sq-ok"></i> every attempt passed everything <i class="r-sq r-sqt r-sq-part"></i> partly working <i class="r-sq r-sqt r-sq-no"></i> nothing passed <i class="r-sq r-sqt r-sq-none"></i> not run · <b>Passed</b>: every hidden test, and the repos’ existing checks (tests, type check, lint) still pass · <b>Attempts</b>: 3 per task and configuration · <b>Cost</b>: for Claude Code its own estimate at API prices (those trials ran on the subscription); for OpenCode the cost the harness reports for its calls to the model&#x27;s provider.</p>
+<h2>Every task</h2>
+<div class="r-scroll"><table class="r-table"><thead><tr><th>Task</th><th>Feature</th><th>Type</th><th class="r-n">Hidden tests</th><th class="r-n">Configurations</th><th class="r-n">Attempts run</th><th class="r-n">Configurations that passed<br>in every attempt</th><th class="r-n">Score, lowest to highest configuration</th></tr></thead><tbody><tr><th scope="row"><a class="r-link" href="tasks/sapor-weight.html">sapor-weight</a></th><td class="r-wrap r-feature">Body weight in Sapor: a morning weigh-in, its 7-day average, a Weight screen, and the weigh-ins for Claude</td><td>simple</td><td class="r-n">29</td><td class="r-n">10</td><td class="r-n">11 of 30</td><td class="r-n">9 of 10</td><td class="r-n">41.4% to 100%</td></tr></tbody></table></div>
+<p class="r-key">Made 2026-11-27 08:48. Every trial ran on one PC, in a container whose only way out is the model’s endpoint. Public pages: the names of the hidden tests, why each failed, the code the agents wrote, the transcripts and the task&#x27;s text are left out.</p>
 
 </div></div>
 <div class="r-tipbox" id="tip" hidden></div>
