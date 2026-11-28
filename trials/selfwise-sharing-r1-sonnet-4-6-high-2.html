@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sonnet 4.6 #2 - selfwise-sharing</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* The results pages. One column, the same type and blue as the design page. Classes start with r-. */
+:root {
+  --bg: #f4f6f9; --surface: #ffffff; --ink: #1a2230; --muted: #566174; --line: #d3d9e2; --soft: #eceff4;
+  --accent: #2b59c8;
+  --good: #0aac23; --good-bg: #dff3e5; --good-soft: #9bd9a8;
+  --bad: #dc3c3d; --bad-bg: #fde4e2;
+  --warn-bg: #fff4d4; --warn-line: #c2961c;
+  --c1: #257de0; --c2: #f47230; --c3: #00b894; --c0: #b3bcc9;
+  --sans: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", "Cascadia Mono", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #11151c; --surface: #181e27; --ink: #e3e8f0; --muted: #98a4b6; --line: #2d3644; --soft: #222a36;
+    --accent: #86a8ff;
+    --good: #0aac23; --good-bg: #15301e; --good-soft: #1f6b33;
+    --bad: #eb6263; --bad-bg: #3b1b1a;
+    --warn-bg: #372c0e; --warn-line: #b08a22;
+    --c1: #338ced; --c2: #e76624; --c3: #00a888; --c0: #4a5566;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #11151c; --surface: #181e27; --ink: #e3e8f0; --muted: #98a4b6; --line: #2d3644; --soft: #222a36;
+  --accent: #86a8ff;
+  --good: #0aac23; --good-bg: #15301e; --good-soft: #1f6b33;
+  --bad: #eb6263; --bad-bg: #3b1b1a;
+  --warn-bg: #372c0e; --warn-line: #b08a22;
+  --c1: #338ced; --c2: #e76624; --c3: #00a888; --c0: #4a5566;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 16px; line-height: 1.5;
+  padding-block: 20px 64px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+a { color: var(--accent); }
+code { font-family: var(--mono); font-size: 0.86em; background: var(--soft); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
+.r-page { max-width: 1240px; margin: 0 auto; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+.r-body { padding: 18px 16px 22px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.r-body > * { margin: 0; }
+.r-crumb { font-size: 0.86rem; color: var(--muted); }
+.r-crumb a { color: var(--muted); }
+h1.r-h { font-size: 1.4rem; font-weight: 600; line-height: 1.25; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; text-wrap: balance; }
+.r-hh { font-weight: 500; }
+.r-sub { color: var(--muted); font-size: 0.9rem; max-width: 100ch; }
+.r-body h2 { font-size: 0.82rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); margin-top: 10px; display: flex; flex-wrap: wrap; gap: 8px; align-items: baseline; }
+.r-tag { font-weight: 400; letter-spacing: 0; text-transform: none; font-size: 0.8rem; background: var(--soft); border-radius: 4px; padding: 1px 6px; }
+.r-muted { color: var(--muted); font-size: 0.88em; font-weight: 400; }
+.r-link { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+.r-key { color: var(--muted); font-size: 0.82rem; max-width: 110ch; }
+.r-list { padding-left: 1.2em; display: flex; flex-direction: column; gap: 8px; font-size: 0.92rem; max-width: 100ch; }
+.r-under { display: block; margin-top: 3px; }
+.r-note { border: 1px solid var(--warn-line); background: var(--warn-bg); border-radius: 8px; padding: 8px 12px; font-size: 0.92rem; }
+
+.r-chips { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.r-chip { font-size: 0.82rem; border: 1px solid var(--line); border-radius: 999px; padding: 3px 10px; background: var(--surface); }
+
+.r-scroll { overflow-x: auto; }
+.r-table { border-collapse: collapse; width: 100%; font-size: 0.88rem; }
+.r-table th, .r-table td { text-align: left; padding: 8px 8px; border-bottom: 1px solid var(--line); vertical-align: middle; white-space: nowrap; }
+.r-table thead th { font-size: 0.74rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); vertical-align: bottom; }
+.r-table tbody th { font-weight: 500; }
+.r-table .r-n { text-align: right; font-variant-numeric: tabular-nums; }
+.r-table td.r-wrap { white-space: normal; min-width: 12em; }
+.r-num { font-variant-numeric: tabular-nums; }
+.r-bad { color: var(--bad); font-weight: 600; }
+
+/* the task page's table: three attempt rows per configuration */
+.r-att tbody { border-top: 2px solid var(--line); }
+.r-att tbody:first-of-type { border-top: 0; }
+.r-att th, .r-att td { padding-left: 5px; padding-right: 5px; }
+.r-att .r-cfg { vertical-align: top; padding-top: 12px; }
+.r-att .r-cfg b { font-size: 1rem; font-weight: 600; }
+.r-att .r-cfg span { display: block; }
+.r-att .r-mean b { font-size: 1.25rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+/* percent, count and squares each start at the same place in every row */
+.r-score { display: grid; grid-template-columns: 3.1em 4.2em auto; column-gap: 6px; align-items: center; justify-content: start; font-variant-numeric: tabular-nums; }
+.r-score b { text-align: right; }
+.r-meter { display: grid; grid-template-columns: 1fr; justify-items: end; min-width: 56px; }
+.r-bar { display: block; height: 4px; background: var(--soft); border-radius: 2px; margin-top: 4px; width: 100%; }
+.r-bar i { display: block; height: 100%; background: var(--c1); border-radius: 2px; }
+
+.r-pill { display: inline-flex; gap: 5px; align-items: center; font-size: 0.82rem; font-weight: 600; padding: 2px 9px; border-radius: 999px; border: 1px solid; color: var(--ink); white-space: nowrap; }
+.r-pass { background: var(--good-bg); border-color: var(--good); }
+.r-fail, .r-error { background: var(--bad-bg); border-color: var(--bad); }
+
+.r-strip { display: inline-flex; gap: 4px; vertical-align: middle; }
+.r-sqg { display: inline-flex; gap: 2px; }
+.r-sq { display: inline-block; width: 6px; height: 14px; border-radius: 2px; }
+.r-sq-ok { background: var(--good); }
+.r-sq-no { background: var(--surface); border: 2px solid var(--bad); }
+.r-sqt { width: 14px; }
+.r-sq-part { background: var(--warn-line); }
+.r-sq-none { background: var(--surface); border: 1px dashed var(--muted); }
+.r-tasks { display: inline-flex; gap: 8px; align-items: center; white-space: nowrap; }
+.r-front th.r-cfg { text-align: left; }
+.r-feature { min-width: 300px; }
+.r-key .r-sq { vertical-align: -2px; margin: 0 3px 0 6px; }
+.r-sq:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.r-st { font-size: 0.95rem; margin: 18px 0 6px; }
+.r-two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.r-two > div { min-width: 0; }
+.r-two p { margin: 0 0 4px; }
+.r-sd { background: var(--warn-bg); box-shadow: inset 3px 0 0 var(--warn-line); margin: 0 -12px; padding: 0 12px; }
+.r-tag-d { background: var(--warn-bg); border: 1px solid var(--warn-line); }
+@media (max-width: 760px) { .r-two { grid-template-columns: 1fr; } }
+.r-cmd, .r-screen, .r-log { font-family: var(--mono); font-size: 0.78rem; line-height: 1.45; background: var(--soft); border-radius: 8px; padding: 10px 12px; overflow-x: auto; white-space: pre; }
+.r-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; }
+.r-tile { border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.r-tile span { font-size: 0.8rem; color: var(--muted); }
+.r-tile b { font-size: 1.2rem; font-weight: 600; }
+.r-tile em { font-style: normal; font-size: 0.8rem; color: var(--muted); }
+
+.r-tlwrap { display: flex; flex-direction: column; gap: 2px; }
+.r-tl { width: 100%; height: 26px; display: block; }
+.r-tl-sub { height: 14px; }
+.r-tlaxis { position: relative; height: 18px; font-size: 0.76rem; color: var(--muted); font-variant-numeric: tabular-nums; border-top: 1px solid var(--line); margin-top: 3px; }
+.r-tlaxis span { position: absolute; top: 2px; padding-left: 4px; border-left: 1px solid var(--line); }
+.r-axisname { font-size: 0.78rem; color: var(--muted); }
+.r-k-read { fill: var(--c1); background: var(--c1); }
+.r-k-write { fill: var(--c2); background: var(--c2); }
+.r-k-check { fill: var(--c3); background: var(--c3); }
+.r-k-think { fill: var(--c0); background: var(--c0); }
+.r-k-wait { fill: var(--soft); background: var(--soft); stroke: var(--c0); stroke-width: 1; vector-effect: non-scaling-stroke; box-shadow: inset 0 0 0 1px var(--c0); }
+.r-track { fill: var(--line); }
+.r-lanecap { font-size: 0.8rem; margin-top: 6px; overflow-wrap: anywhere; }
+.r-lanecap:first-child { margin-top: 0; }
+.r-legs { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 0.86rem; }
+.r-leg { display: inline-flex; gap: 6px; align-items: center; }
+.r-sw { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+
+.r-checks { display: flex; flex-wrap: wrap; gap: 6px; }
+.r-summary { border-left: 3px solid var(--line); padding-left: 12px; display: flex; flex-direction: column; gap: 8px; font-size: 0.94rem; max-width: 80ch; }
+.r-summary p, .r-summary ul { margin: 0; }
+.r-summary ul { padding-left: 1.2em; }
+.r-links { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 0.92rem; }
+details.r-more { font-size: 0.9rem; }
+details.r-more summary { cursor: pointer; color: var(--muted); }
+details.r-more > * + * { margin-top: 8px; }
+.r-tipbox { position: fixed; z-index: 20; max-width: 280px; background: var(--ink); color: var(--bg); font-size: 0.8rem; padding: 6px 9px; border-radius: 6px; pointer-events: none; }
+
+@media (max-width: 700px) {
+  .r-cards thead { display: none; }
+  .r-cards, .r-cards tbody { display: block; }
+  .r-cards tbody { padding: 6px 0; }
+  .r-cards tr { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 14px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+  .r-cards tbody tr:last-child { border-bottom: 0; }
+  .r-cards th, .r-cards td { border: 0; padding: 0; white-space: normal; text-align: left; }
+  .r-cards .r-n { text-align: left; }
+  .r-cards th.r-cfg, .r-cards .r-wide { grid-column: 1 / -1; }
+  .r-cards .r-cfg span { display: inline; margin-left: 8px; }
+  .r-cards td.r-cfg { grid-column: 1 / -1; }
+  .r-cards td::before { content: attr(data-label); display: block; font-size: 0.7rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); margin-bottom: 2px; }
+  .r-cards .r-score { display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: baseline; }
+  .r-cards .r-score .r-strip { flex-basis: 100%; flex-wrap: wrap; }
+  .r-cards .r-meter { justify-items: start; max-width: 140px; }
+}
+</style>
+<div class="r-page"><div class="r-body">
+<div class="r-crumb"><a href="../index.html">Athlos</a> / <a href="../tasks/selfwise-sharing.html">selfwise-sharing</a> / <b>Sonnet 4.6, effort high, method none, attempt 2</b></div>
+<h1 class="r-h"><span class="r-pill r-fail"><span aria-hidden="true">✕</span> Failed</span> <span>Score 0%</span> <span class="r-hh r-muted">0 of 43 hidden tests</span></h1>
+<p class="r-note">Failed whatever its score: this build leaves <b>selfwise-test, selfwise-types</b> failing, an existing check of the repos. The score counts the hidden tests only.</p>
+<p class="r-sub">claude-code 2.1.332 · claude-sonnet-4-6 · effort high · method none · started 2026-11-28 10:51 UTC</p>
+<pre class="r-cmd">harbor run -p tasks/selfwise-sharing -a claude-code \
+  -m anthropic/claude-sonnet-4-6 \
+  --ak skip_install=true \
+  --ak reasoning_effort=high \
+  --allow-agent-host api.anthropic.com \
+  --job-name selfwise-sharing-r1-sonnet-4-6-high-2</pre>
+<div class="r-tiles">
+  <div class="r-tile"><span>Agent time</span><b>21 min 07 s</b><em>limit 240 min</em></div>
+  <div class="r-tile"><span>Cost at API prices</span><b>$5.46</b><em>71K tokens out, 10.7M cached in</em></div>
+  <div class="r-tile"><span>Turns</span><b>68</b><em>67 tool calls, 1 subagent</em></div>
+  <div class="r-tile"><span>Written</span><b>1160 lines</b><em>18 files, 13 lines removed</em></div>
+</div>
+<p class="r-sub">Whole trial 41 min 46 s: setup 6 s, agent 21 min 07 s, verifier 20 min 25 s · Tokens: 71K out, 10.7M cached in, 216K cache written, 133 other in · Agent ended: success</p>
+<h2>What the agent was doing</h2>
+<div class="r-tlwrap"><div class="r-lanecap"><b>Main agent</b> <span class="r-muted">Sonnet 4.6</span></div><svg class="r-tl" viewBox="0 0 1000 26" preserveAspectRatio="none" role="img" aria-label="What the main agent was doing, minute by minute"><rect class="r-k-think" x="2.7" y="0" width="1.2" height="26" rx="2"><title>Thinking, planning, other tools, minute 0.0, 1 s</title></rect><rect class="r-k-read" x="4.2" y="0" width="1.2" height="26" rx="2"><title>Reading the repos, minute 0.0, 2 s</title></rect><rect class="r-k-write" x="6.5" y="0" width="1.2" height="26" rx="2"><title>Writing code, minute 0.1, 2 s</title></rect><rect class="r-k-read" x="9.2" y="0" width="9.7" height="26" rx="2"><title>Reading the repos, minute 0.1, 7 s</title></rect><rect class="r-k-think" x="20.4" y="0" width="1.2" height="26" rx="2"><title>Thinking, planning, other tools, minute 0.2, 1 s</title></rect><rect class="r-k-read" x="21.6" y="0" width="3.6" height="26" rx="2"><title>Reading the repos, minute 0.2, 3 s</title></rect><rect class="r-k-think" x="26.8" y="0" width="1.2" height="26" rx="2"><title>Thinking, planning, other tools, minute 0.3, 1 s</title></rect><rect class="r-k-read" x="28.0" y="0" width="17.6" height="26" rx="2"><title>Reading the repos, minute 0.3, 13 s</title></rect><rect class="r-k-think" x="47.0" y="0" width="1.2" height="26" rx="2"><title>Thinking, planning, other tools, minute 0.5, 1 s</title></rect><rect class="r-k-read" x="48.6" y="0" width="14.8" height="26" rx="2"><title>Reading the repos, minute 0.5, 11 s</title></rect><rect class="r-k-think" x="64.9" y="0" width="1.2" height="26" rx="2"><title>Thinking, planning, other tools, minute 0.7, 2 s</title></rect><rect class="r-k-read" x="67.6" y="0" width="412.1" height="26" rx="2"><title>Reading the repos, minute 0.7, 273 s</title></rect><rect class="r-k-think" x="481.2" y="0" width="1.2" height="26" rx="2"><title>Thinking, planning, other tools, minute 5.3, 1 s</title></rect><rect class="r-k-read" x="483.4" y="0" width="18.5" height="26" rx="2"><title>Reading the repos, minute 5.3, 13 s</title></rect><rect class="r-k-think" x="503.3" y="0" width="1.4" height="26" rx="2"><title>Thinking, planning, other tools, minute 5.5, 2 s</title></rect><rect class="r-k-read" x="506.2" y="0" width="12.6" height="26" rx="2"><title>Reading the repos, minute 5.6, 9 s</title></rect><rect class="r-k-think" x="520.3" y="0" width="1.2" height="26" rx="2"><title>Thinking, planning, other tools, minute 5.7, 1 s</title></rect><rect class="r-k-read" x="521.3" y="0" width="40.7" height="26" rx="2"><title>Reading the repos, minute 5.7, 28 s</title></rect><rect class="r-k-think" x="563.5" y="0" width="1.2" height="26" rx="2"><title>Thinking, planning, other tools, minute 6.2, 1 s</title></rect><rect class="r-k-read" x="564.8" y="0" width="33.9" height="26" rx="2"><title>Reading the repos, minute 6.2, 23 s</title></rect><rect class="r-k-think" x="600.2" y="0" width="1.2" height="26" rx="2"><title>Thinking, planning, other tools, minute 6.6, 1 s</title></rect><rect class="r-k-read" x="601.4" y="0" width="64.2" height="26" rx="2"><title>Reading the repos, minute 6.6, 43 s</title></rect><rect class="r-k-think" x="667.0" y="0" width="1.2" height="26" rx="2"><title>Thinking, planning, other tools, minute 7.3, 1 s</title></rect><rect class="r-k-read" x="668.5" y="0" width="108.8" height="26" rx="2"><title>Reading the repos, minute 7.4, 73 s</title></rect><rect class="r-k-think" x="778.8" y="0" width="1.2" height="26" rx="2"><title>Thinking, planning, other tools, minute 8.6, 1 s</title></rect><rect class="r-k-read" x="780.0" y="0" width="51.1" height="26" rx="2"><title>Reading the repos, minute 8.6, 35 s</title></rect><rect class="r-k-think" x="832.7" y="0" width="1.2" height="26" rx="2"><title>Thinking, planning, other tools, minute 9.2, 1 s</title></rect><rect class="r-k-check" x="834.6" y="0" width="19.2" height="26" rx="2"><title>Running tests and checks, minute 9.2, 14 s</title></rect><rect class="r-k-think" x="855.4" y="0" width="143.6" height="26" rx="2"><title>Thinking, planning, other tools, minute 9.4, 96 s</title></rect></svg><div class="r-lanecap"><b>fork</b> Implement friends and shared entries feature <span class="r-muted">Sonnet 4.6 · from minute 11.0 · 10.1 min</span></div><svg class="r-tl r-tl-sub" viewBox="0 0 1000 14" preserveAspectRatio="none" role="img" aria-label="Subagent fork: Implement friends and shared entries feature"><rect class="r-track" x="0" y="6.5" width="1000" height="1"/><rect class="r-k-think" x="999.2" y="0" width="1.2" height="14" rx="2"><title>Thinking, planning, other tools, minute 11.0, 1 s</title></rect><rect class="r-k-read" x="1000.2" y="0" width="1.8" height="14" rx="2"><title>Reading the repos, minute 11.0, 2 s</title></rect><rect class="r-k-think" x="1002.6" y="0" width="1.2" height="14" rx="2"><title>Thinking, planning, other tools, minute 11.0, 1 s</title></rect><rect class="r-k-read" x="1003.9" y="0" width="9.5" height="14" rx="2"><title>Reading the repos, minute 11.1, 7 s</title></rect><rect class="r-k-think" x="1014.1" y="0" width="1.2" height="14" rx="2"><title>Thinking, planning, other tools, minute 11.2, 1 s</title></rect><rect class="r-k-read" x="1015.3" y="0" width="10.3" height="14" rx="2"><title>Reading the repos, minute 11.2, 7 s</title></rect><rect class="r-k-think" x="1026.2" y="0" width="4.8" height="14" rx="2"><title>Thinking, planning, other tools, minute 11.3, 4 s</title></rect><rect class="r-k-write" x="1031.6" y="0" width="104.1" height="14" rx="2"><title>Writing code, minute 11.4, 69 s</title></rect><rect class="r-k-think" x="1136.3" y="0" width="1.2" height="14" rx="2"><title>Thinking, planning, other tools, minute 12.5, 0 s</title></rect><rect class="r-k-read" x="1136.8" y="0" width="4.7" height="14" rx="2"><title>Reading the repos, minute 12.5, 4 s</title></rect><rect class="r-k-write" x="1142.1" y="0" width="1.4" height="14" rx="2"><title>Writing code, minute 12.6, 1 s</title></rect><rect class="r-k-think" x="1143.9" y="0" width="3.2" height="14" rx="2"><title>Thinking, planning, other tools, minute 12.6, 2 s</title></rect><rect class="r-k-write" x="1147.8" y="0" width="1.4" height="14" rx="2"><title>Writing code, minute 12.6, 1 s</title></rect><rect class="r-k-think" x="1149.8" y="0" width="87.1" height="14" rx="2"><title>Thinking, planning, other tools, minute 12.7, 58 s</title></rect><rect class="r-k-write" x="1237.7" y="0" width="1.4" height="14" rx="2"><title>Writing code, minute 13.6, 1 s</title></rect><rect class="r-k-think" x="1239.5" y="0" width="1.2" height="14" rx="2"><title>Thinking, planning, other tools, minute 13.7, 1 s</title></rect><rect class="r-k-check" x="1240.5" y="0" width="60.1" height="14" rx="2"><title>Running tests and checks, minute 13.7, 40 s</title></rect><rect class="r-k-think" x="1301.2" y="0" width="1.2" height="14" rx="2"><title>Thinking, planning, other tools, minute 14.3, 0 s</title></rect><rect class="r-k-read" x="1301.7" y="0" width="2.3" height="14" rx="2"><title>Reading the repos, minute 14.3, 2 s</title></rect><rect class="r-k-write" x="1304.5" y="0" width="1.2" height="14" rx="2"><title>Writing code, minute 14.4, 1 s</title></rect><rect class="r-k-think" x="1306.2" y="0" width="1.2" height="14" rx="2"><title>Thinking, planning, other tools, minute 14.4, 1 s</title></rect><rect class="r-k-check" x="1307.9" y="0" width="57.8" height="14" rx="2"><title>Running tests and checks, minute 14.4, 39 s</title></rect><rect class="r-k-think" x="1366.3" y="0" width="1.2" height="14" rx="2"><title>Thinking, planning, other tools, minute 15.1, 1 s</title></rect><rect class="r-k-check" x="1367.8" y="0" width="55.8" height="14" rx="2"><title>Running tests and checks, minute 15.1, 37 s</title></rect><rect class="r-k-think" x="1424.2" y="0" width="1.2" height="14" rx="2"><title>Thinking, planning, other tools, minute 15.7, 0 s</title></rect><rect class="r-k-read" x="1424.7" y="0" width="2.6" height="14" rx="2"><title>Reading the repos, minute 15.7, 2 s</title></rect><rect class="r-k-think" x="1427.8" y="0" width="2.9" height="14" rx="2"><title>Thinking, planning, other tools, minute 15.7, 2 s</title></rect><rect class="r-k-write" x="1431.3" y="0" width="2.3" height="14" rx="2"><title>Writing code, minute 15.8, 2 s</title></rect><rect class="r-k-check" x="1434.3" y="0" width="19.7" height="14" rx="2"><title>Running tests and checks, minute 15.8, 13 s</title></rect><rect class="r-k-think" x="1454.6" y="0" width="1.2" height="14" rx="2"><title>Thinking, planning, other tools, minute 16.0, 1 s</title></rect><rect class="r-k-check" x="1455.7" y="0" width="4.5" height="14" rx="2"><title>Running tests and checks, minute 16.0, 3 s</title></rect><rect class="r-k-think" x="1460.8" y="0" width="1.2" height="14" rx="2"><title>Thinking, planning, other tools, minute 16.1, 1 s</title></rect><rect class="r-k-write" x="1462.0" y="0" width="211.0" height="14" rx="2"><title>Writing code, minute 16.1, 140 s</title></rect><rect class="r-k-think" x="1673.7" y="0" width="1.2" height="14" rx="2"><title>Thinking, planning, other tools, minute 18.4, 1 s</title></rect><rect class="r-k-read" x="1675.0" y="0" width="2.4" height="14" rx="2"><title>Reading the repos, minute 18.5, 2 s</title></rect><rect class="r-k-think" x="1678.1" y="0" width="1.2" height="14" rx="2"><title>Thinking, planning, other tools, minute 18.5, 1 s</title></rect><rect class="r-k-read" x="1679.7" y="0" width="2.6" height="14" rx="2"><title>Reading the repos, minute 18.5, 2 s</title></rect><rect class="r-k-think" x="1682.9" y="0" width="1.2" height="14" rx="2"><title>Thinking, planning, other tools, minute 18.5, 1 s</title></rect><rect class="r-k-read" x="1684.3" y="0" width="13.6" height="14" rx="2"><title>Reading the repos, minute 18.6, 9 s</title></rect><rect class="r-k-think" x="1698.5" y="0" width="5.9" height="14" rx="2"><title>Thinking, planning, other tools, minute 18.7, 4 s</title></rect><rect class="r-k-write" x="1705.0" y="0" width="9.8" height="14" rx="2"><title>Writing code, minute 18.8, 7 s</title></rect><rect class="r-k-think" x="1715.4" y="0" width="5.6" height="14" rx="2"><title>Thinking, planning, other tools, minute 18.9, 4 s</title></rect><rect class="r-k-write" x="1721.6" y="0" width="1.2" height="14" rx="2"><title>Writing code, minute 19.0, 1 s</title></rect><rect class="r-k-think" x="1723.1" y="0" width="1.4" height="14" rx="2"><title>Thinking, planning, other tools, minute 19.0, 1 s</title></rect><rect class="r-k-write" x="1725.1" y="0" width="7.0" height="14" rx="2"><title>Writing code, minute 19.0, 5 s</title></rect><rect class="r-k-think" x="1732.7" y="0" width="3.3" height="14" rx="2"><title>Thinking, planning, other tools, minute 19.1, 3 s</title></rect><rect class="r-k-write" x="1736.6" y="0" width="17.6" height="14" rx="2"><title>Writing code, minute 19.1, 12 s</title></rect><rect class="r-k-think" x="1754.8" y="0" width="6.4" height="14" rx="2"><title>Thinking, planning, other tools, minute 19.3, 5 s</title></rect><rect class="r-k-write" x="1761.7" y="0" width="1.2" height="14" rx="2"><title>Writing code, minute 19.4, 1 s</title></rect><rect class="r-k-think" x="1763.2" y="0" width="3.2" height="14" rx="2"><title>Thinking, planning, other tools, minute 19.4, 2 s</title></rect><rect class="r-k-write" x="1767.0" y="0" width="4.1" height="14" rx="2"><title>Writing code, minute 19.5, 3 s</title></rect><rect class="r-k-think" x="1771.7" y="0" width="2.0" height="14" rx="2"><title>Thinking, planning, other tools, minute 19.5, 2 s</title></rect><rect class="r-k-write" x="1774.3" y="0" width="1.2" height="14" rx="2"><title>Writing code, minute 19.5, 1 s</title></rect><rect class="r-k-think" x="1776.1" y="0" width="1.2" height="14" rx="2"><title>Thinking, planning, other tools, minute 19.6, 1 s</title></rect><rect class="r-k-write" x="1777.9" y="0" width="4.8" height="14" rx="2"><title>Writing code, minute 19.6, 4 s</title></rect><rect class="r-k-think" x="1783.4" y="0" width="1.2" height="14" rx="2"><title>Thinking, planning, other tools, minute 19.6, 1 s</title></rect><rect class="r-k-read" x="1784.3" y="0" width="1.8" height="14" rx="2"><title>Reading the repos, minute 19.7, 2 s</title></rect><rect class="r-k-write" x="1786.7" y="0" width="1.5" height="14" rx="2"><title>Writing code, minute 19.7, 1 s</title></rect><rect class="r-k-think" x="1788.8" y="0" width="1.2" height="14" rx="2"><title>Thinking, planning, other tools, minute 19.7, 1 s</title></rect><rect class="r-k-read" x="1789.9" y="0" width="35.3" height="14" rx="2"><title>Reading the repos, minute 19.7, 24 s</title></rect><rect class="r-k-think" x="1825.7" y="0" width="1.2" height="14" rx="2"><title>Thinking, planning, other tools, minute 20.1, 1 s</title></rect><rect class="r-k-read" x="1827.4" y="0" width="36.0" height="14" rx="2"><title>Reading the repos, minute 20.1, 24 s</title></rect><rect class="r-k-write" x="1864.0" y="0" width="4.4" height="14" rx="2"><title>Writing code, minute 20.5, 3 s</title></rect><rect class="r-k-think" x="1869.0" y="0" width="21.0" height="14" rx="2"><title>Thinking, planning, other tools, minute 20.6, 14 s</title></rect><rect class="r-k-write" x="1890.6" y="0" width="2.7" height="14" rx="2"><title>Writing code, minute 20.8, 2 s</title></rect><rect class="r-k-think" x="1893.8" y="0" width="14.1" height="14" rx="2"><title>Thinking, planning, other tools, minute 20.9, 10 s</title></rect></svg><div class="r-tlaxis"><span style="left:0.00%">0</span><span style="left:9.08%">1</span><span style="left:18.15%">2</span><span style="left:27.23%">3</span><span style="left:36.31%">4</span><span style="left:45.39%">5</span><span style="left:54.46%">6</span><span style="left:63.54%">7</span><span style="left:72.62%">8</span><span style="left:81.69%">9</span><span style="left:90.77%">10</span><span style="left:99.85%">11</span></div><div class="r-axisname">minutes since the agent started · one lane per subagent, on the same clock</div></div><div class="r-legs"><span class="r-leg r-muted">Main agent:</span><span class="r-leg"><i class="r-sw r-k-read"></i>Reading the repos <b>8.9 min</b> <span class="r-muted">81%</span></span><span class="r-leg"><i class="r-sw r-k-write"></i>Writing code <b>0.0 min</b> <span class="r-muted">0%</span></span><span class="r-leg"><i class="r-sw r-k-check"></i>Running tests and checks <b>0.2 min</b> <span class="r-muted">2%</span></span><span class="r-leg"><i class="r-sw r-k-think"></i>Thinking, planning, other tools <b>1.8 min</b> <span class="r-muted">17%</span></span></div>
+<h2>Subagents (1)</h2>
+<div class="r-scroll"><table class="r-table"><thead><tr><th>Type</th><th>Asked to</th><th>Model</th><th class="r-n">Started</th><th class="r-n">Ran</th><th>Beside another</th><th class="r-n">Tool calls</th><th class="r-n">Tokens out</th><th class="r-n">Cost</th></tr></thead><tbody><tr><td><code>fork</code></td><td class="r-wrap">Implement friends and shared entries feature</td><td>Sonnet 4.6</td><td class="r-n">min 11.0</td><td class="r-n">10.1 min</td><td>no</td><td class="r-n">69</td><td class="r-n">34K</td><td class="r-n">$2.88</td></tr></tbody></table></div>
+<p class="r-sub">Together: 10.1 min of subagent time inside 21.1 min of agent time, and $2.88 of the trial’s $5.46 (53%). No dispatch asked for a model, so each ran on the trial's model. Skills invoked: none. A subagent’s cost is its share of its model’s tokens in the trial, weighted as the API prices them.</p>
+<h2>Hidden tests, by part of the feature</h2><div class="r-scroll"><table class="r-table" style="width:auto"><thead><tr><th>Part</th><th class="r-n">Passed</th><th></th></tr></thead><tbody><tr><th scope="row">Friends</th><td class="r-n">0 of 10</td><td><span class="r-strip"><span class="r-sqg"><i class="r-sq r-sq-no" tabindex="0" data-tip="Friends, test 1 — failed"></i><i class="r-sq r-sq-no" tabindex="0" data-tip="Friends, test 2 — failed"></i><i class="r-sq r-sq-no" tabindex="0" data-tip="Friends, test 3 — failed"></i><i class="r-sq r-sq-no" tabindex="0" data-tip="Friends, test 4 — failed"></i><i class="r-sq r-sq-no" tabindex="0" data-tip="Friends, test 5 — failed"></i><i class="r-sq r-sq-no" tabindex="0" data-tip="Friends, test 6 — failed"></i><i class="r-sq r-sq-no" tabindex="0" data-tip="Friends, test 7 — failed"></i><i class="r-sq r-sq-no" tabindex="0" data-tip="Friends, test 8 — failed"></i><i class="r-sq r-sq-no" tabindex="0" data-tip="Friends, test 9 — failed"></i><i class="r-sq r-sq-no" tabindex="0" data-tip="Friends, test 10 — failed"></i></span></span></td></tr><tr><th scope="row">Receiving</th><td class="r-n">0 of 12</td><td><span class="r-strip"><span class="r-sqg"><i class="r-sq r-sq-no" tabindex="0" data-tip="Receiving, test 1 — failed"></i><i class="r-sq r-sq-no" tabindex="0" data-tip="Receiving, test 2 — failed"></i><i class="r-sq r-sq-no" tabindex="0" data-tip="Receiving, test 3 — failed"></i><i class="r-sq r-sq-no" tabindex="0" data-tip="Receiving, test 4 — failed"></i><i class="r-sq r-sq-no" tabindex="0" data-tip="Receiving, test 5 — failed"></i><i class="r-sq r-sq-no" tabindex="0" data-tip="Receiving, test 6 — failed"></i><i class="r-sq r-sq-no" tabindex="0" data-tip="Receiving, test 7 — failed"></i><i class="r-sq r-sq-no" tabindex="0" data-tip="Receiving, test 8 — failed"></i><i class="r-sq r-sq-no" tabindex="0" data-tip="Receiving, test 9 — failed"></i><i class="r-sq r-sq-no" tabindex="0" data-tip="Receiving, test 10 — failed"></i><i class="r-sq r-sq-no" tabindex="0" data-tip="Receiving, test 11 — failed"></i><i class="r-sq r-sq-no" tabindex="0" data-tip="Receiving, test 12 — failed"></i></span></span></td></tr><tr><th scope="row">Sharing</th><td class="r-n">0 of 9</td><td><span class="r-strip"><span class="r-sqg"><i class="r-sq r-sq-no" tabindex="0" data-tip="Sharing, test 1 — failed"></i><i class="r-sq r-sq-no" tabindex="0" data-tip="Sharing, test 2 — failed"></i><i class="r-sq r-sq-no" tabindex="0" data-tip="Sharing, test 3 — failed"></i><i class="r-sq r-sq-no" tabindex="0" data-tip="Sharing, test 4 — failed"></i><i class="r-sq r-sq-no" tabindex="0" data-tip="Sharing, test 5 — failed"></i><i class="r-sq r-sq-no" tabindex="0" data-tip="Sharing, test 6 — failed"></i><i class="r-sq r-sq-no" tabindex="0" data-tip="Sharing, test 7 — failed"></i><i class="r-sq r-sq-no" tabindex="0" data-tip="Sharing, test 8 — failed"></i><i class="r-sq r-sq-no" tabindex="0" data-tip="Sharing, test 9 — failed"></i></span></span></td></tr><tr><th scope="row">Update</th><td class="r-n">0 of 1</td><td><span class="r-strip"><span class="r-sqg"><i class="r-sq r-sq-no" tabindex="0" data-tip="Update, test 1 — failed"></i></span></span></td></tr><tr><th scope="row">Who sees</th><td class="r-n">0 of 11</td><td><span class="r-strip"><span class="r-sqg"><i class="r-sq r-sq-no" tabindex="0" data-tip="Who sees, test 1 — failed"></i><i class="r-sq r-sq-no" tabindex="0" data-tip="Who sees, test 2 — failed"></i><i class="r-sq r-sq-no" tabindex="0" data-tip="Who sees, test 3 — failed"></i><i class="r-sq r-sq-no" tabindex="0" data-tip="Who sees, test 4 — failed"></i><i class="r-sq r-sq-no" tabindex="0" data-tip="Who sees, test 5 — failed"></i><i class="r-sq r-sq-no" tabindex="0" data-tip="Who sees, test 6 — failed"></i><i class="r-sq r-sq-no" tabindex="0" data-tip="Who sees, test 7 — failed"></i><i class="r-sq r-sq-no" tabindex="0" data-tip="Who sees, test 8 — failed"></i><i class="r-sq r-sq-no" tabindex="0" data-tip="Who sees, test 9 — failed"></i><i class="r-sq r-sq-no" tabindex="0" data-tip="Who sees, test 10 — failed"></i><i class="r-sq r-sq-no" tabindex="0" data-tip="Who sees, test 11 — failed"></i></span></span></td></tr></tbody></table></div>
+<h2>Existing checks of the repos</h2><div class="r-checks"><span class="r-pill r-fail"><span aria-hidden="true">✕</span> selfwise-test</span><span class="r-pill r-fail"><span aria-hidden="true">✕</span> selfwise-types</span><span class="r-pill r-pass"><span aria-hidden="true">✓</span> selfwise-lint</span><span class="r-pill r-pass"><span aria-hidden="true">✓</span> mcp-test</span><span class="r-pill r-pass"><span aria-hidden="true">✓</span> mcp-types</span><span class="r-pill r-pass"><span aria-hidden="true">✓</span> backend-test</span><span class="r-pill r-pass"><span aria-hidden="true">✓</span> backend-types</span></div>
+<p class="r-sub">Of the 984 tests in 72 files that the repos had, none was removed, renamed or skipped.</p>
+<h2>Summary <span class="r-tag">written by a model from the log · never part of the score</span></h2><div class="r-summary"><p><b>Approach.</b> It explored the three repos and read the sync client, app schemas, <code>DbProvider.tsx</code>, <code>account.tsx</code> and <code>entry/[id].tsx</code>, then ran the existing backend and app suites to confirm they were green (steps 2 to 67). It then handed the whole Friends and shared-entries feature to one fork subagent with the spec (step 68); the work that follows built the backend first — <code>migrations/0006_friends.sql</code>, <code>src/friends/routes.ts</code>, route registration in <code>index.ts</code>, friendship cleanup in <code>auth/routes.ts</code> and <code>test/friends.spec.ts</code> (steps 78 to 84) — then the app-side <code>friends</code> module plus edits to <code>syncTables.ts</code>, <code>applySchema.ts</code>, <code>DbProvider.tsx</code>, <code>activity-logging/model.ts</code>, <code>activity-logging/repository.ts</code> and <code>activities/schema.ts</code> (steps 96 to 122), ending on <code>FriendsCard.tsx</code> (steps 130 to 132).</p><p><b>What it tried and gave up.</b> It wrote <code>FriendsCard.tsx</code>, then rewrote it once for token retrieval and started a third rewrite at the last logged step (steps 130, 131, 132). It edited its own <code>test/friends.spec.ts</code> after failures and added the new tables to <code>test/health.spec.ts</code> (steps 87 and 91). A worker test run hit a DNS lookup failure, which it worked around by grepping the output (steps 88 to 89). Nothing shows it returning to wire the new app components into any screen.</p><p><b>What it checked itself.</b> Before its changes it ran <code>npm test</code> in <code>selfwise-backend</code> and in <code>selfwise-app</code>, both passing (steps 66 to 67). After the backend changes it ran <code>npm test -w worker</code>, which passed with 7 files and 88 tests, and <code>npm run typecheck</code> in <code>selfwise-backend</code>, which passed (steps 92 to 94). It never ran the <code>selfwise-app</code> tests, typecheck or lint after editing app files, and it never ran <code>selfwise-lint</code>, <code>mcp-test</code> or <code>mcp-types</code> at any point in the log.</p><p><b>Why it scored as it did.</b> For the Friends, Receiving, Sharing (except one), Update and Who sees tests, the failures are all a missing element: no username field, Friends card, Share card or pending-share rows are rendered anywhere, since <code>FriendsCard.tsx</code> was still being rewritten at the last step and no screen imports it (steps 123 to 132). The one Sharing test that failed on a value comparison, about a Share card being present only while signed in, likely failed for the same reason, no Share card existing on the entry screen (steps 124 to 126). <code>selfwise-test</code> failed because <code>listItems</code> now returns items carrying an <code>addedBy</code> field that the expected objects lack, a change made to the item model and repository (steps 106 to 107). <code>selfwise-types</code> failed because <code>EntryItem</code> was made to require <code>addedBy</code> while the <code>addItem</code> return type and its use in <code>DayPlan.tsx</code> were left without it (step 107).</p></div><p class="r-muted">Step numbers are those of the trial’s log, which is not public.</p>
+<h2>What it wrote</h2><div class="r-scroll"><table class="r-table" style="width:auto"><thead><tr><th>File</th><th></th><th class="r-n">Added</th><th class="r-n">Removed</th></tr></thead><tbody><tr><td><code>selfwise-backend/worker/src/friends/routes.ts</code></td><td>new</td><td class="r-n">+387</td><td class="r-n">−0</td></tr><tr><td><code>selfwise-backend/worker/test/friends.spec.ts</code></td><td>new</td><td class="r-n">+314</td><td class="r-n">−0</td></tr><tr><td><code>selfwise/selfwise-app/src/features/friends/components/FriendsCard.tsx</code></td><td>new</td><td class="r-n">+120</td><td class="r-n">−0</td></tr><tr><td><code>selfwise/selfwise-app/src/features/friends/repository.ts</code></td><td>new</td><td class="r-n">+85</td><td class="r-n">−0</td></tr><tr><td><code>selfwise/selfwise-app/src/features/friends/api.ts</code></td><td>new</td><td class="r-n">+80</td><td class="r-n">−0</td></tr><tr><td><code>selfwise/selfwise-app/src/features/friends/model.ts</code></td><td>new</td><td class="r-n">+39</td><td class="r-n">−0</td></tr><tr><td><code>selfwise/selfwise-app/src/features/friends/schema.ts</code></td><td>new</td><td class="r-n">+38</td><td class="r-n">−0</td></tr><tr><td><code>selfwise/selfwise-app/src/db/DbProvider.tsx</code></td><td>changed</td><td class="r-n">+27</td><td class="r-n">−7</td></tr><tr><td><code>selfwise/selfwise-app/src/features/friends/sync.ts</code></td><td>new</td><td class="r-n">+31</td><td class="r-n">−0</td></tr><tr><td><code>selfwise-backend/worker/migrations/0006_friends.sql</code></td><td>new</td><td class="r-n">+25</td><td class="r-n">−0</td></tr><tr><td><code>selfwise/selfwise-app/src/db/syncTables.ts</code></td><td>changed</td><td class="r-n">+2</td><td class="r-n">−2</td></tr><tr><td><code>selfwise/selfwise-app/src/features/activity-logging/repository.ts</code></td><td>changed</td><td class="r-n">+2</td><td class="r-n">−2</td></tr><tr><td><code>selfwise/selfwise-app/src/db/applySchema.ts</code></td><td>changed</td><td class="r-n">+2</td><td class="r-n">−1</td></tr><tr><td><code>selfwise-backend/worker/src/auth/routes.ts</code></td><td>changed</td><td class="r-n">+2</td><td class="r-n">−0</td></tr><tr><td><code>selfwise-backend/worker/src/index.ts</code></td><td>changed</td><td class="r-n">+2</td><td class="r-n">−0</td></tr></tbody></table></div><p class="r-muted">The 15 largest of 18 files; build output and packages are left out.</p>
+<p class="r-key">Public pages: the names of the hidden tests, why each failed, the code the agents wrote, the transcripts and the task&#x27;s text are left out.</p>
+</div></div>
+<div class="r-tipbox" id="tip" hidden></div>
+<script>
+(function () {
+  var tip = document.getElementById('tip');
+  function show(el) {
+    tip.textContent = el.getAttribute('data-tip');
+    tip.hidden = false;
+    var r = el.getBoundingClientRect(), w = tip.offsetWidth;
+    tip.style.left = Math.max(8, Math.min(window.innerWidth - w - 8, r.left + r.width / 2 - w / 2)) + 'px';
+    tip.style.top = (r.top > 60 ? r.top - tip.offsetHeight - 6 : r.bottom + 6) + 'px';
+  }
+  function hide() { tip.hidden = true; }
+  document.querySelectorAll('[data-tip]').forEach(function (el) {
+    el.addEventListener('pointerenter', function () { show(el); });
+    el.addEventListener('pointerleave', hide);
+    el.addEventListener('focus', function () { show(el); });
+    el.addEventListener('blur', hide);
+    el.addEventListener('click', function () { show(el); });
+  });
+  window.addEventListener('scroll', hide, { passive: true });
+})();
+</script>
+</html>
