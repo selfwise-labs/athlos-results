@@ -88,6 +88,24 @@ th[aria-sort="descending"] .r-sortbtn::after { content: "\2193"; opacity: 1; col
 .r-sortby { display: none; font-size: 0.86rem; color: var(--muted); }
 .r-sortby select { font: inherit; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 5px 8px; max-width: 100%; }
 
+/* A filter over the configurations table: a tick box per row, and an unticked row leaves the table. */
+.r-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.r-filter { position: relative; font-size: 0.86rem; }
+.r-filter > summary { list-style: none; cursor: pointer; display: inline-flex; align-items: baseline; gap: 6px; padding: 5px 10px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); color: var(--ink); }
+.r-filter > summary::-webkit-details-marker { display: none; }
+.r-filter > summary::after { content: "\25BE"; color: var(--muted); }
+.r-filter[open] > summary::after { content: "\25B4"; }
+.r-filter > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.r-fcount { color: var(--muted); }
+.r-fmenu { position: absolute; z-index: 15; top: calc(100% + 4px); left: 0; width: 340px; max-width: 88vw; max-height: 60vh; overflow: auto; padding: 10px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.14); }
+.r-fbtns { display: flex; gap: 8px; padding-bottom: 8px; margin-bottom: 6px; border-bottom: 1px solid var(--line); }
+.r-fbtns button { font: inherit; color: var(--ink); background: var(--soft); border: 1px solid var(--line); border-radius: 6px; padding: 2px 9px; cursor: pointer; }
+.r-fitem { display: flex; gap: 8px; align-items: flex-start; padding: 4px 2px; color: var(--ink); cursor: pointer; }
+.r-fitem input { margin: 3px 0 0; }
+.r-fitem b { font-weight: 600; }
+.r-fitem span { display: block; }
+.r-off { display: none !important; }
+
 /* the task page's table: three attempt rows per configuration */
 .r-att tbody { border-top: 2px solid var(--line); }
 .r-att tbody:first-of-type { border-top: 0; }
@@ -114,10 +132,6 @@ th[aria-sort="descending"] .r-sortbtn::after { content: "\2193"; opacity: 1; col
 .r-sq { display: inline-block; width: 6px; height: 14px; border-radius: 2px; }
 .r-sq-ok { background: var(--good); }
 .r-sq-no { background: var(--surface); border: 2px solid var(--bad); }
-.r-sqt { width: 14px; }
-.r-sq-part { background: var(--warn-line); }
-.r-sq-none { background: var(--surface); border: 1px dashed var(--muted); }
-.r-tasks { display: inline-flex; gap: 8px; align-items: center; white-space: nowrap; }
 .r-front th.r-cfg { text-align: left; }
 .r-feature { min-width: 300px; }
 .r-key .r-sq { vertical-align: -2px; margin: 0 3px 0 6px; }
@@ -168,6 +182,7 @@ details.r-more > * + * { margin-top: 8px; }
 @media (max-width: 700px) {
   .r-sorthint { display: none; }
   .r-sortby { display: grid; gap: 4px; margin: 8px 0 2px; }
+  .r-fmenu { position: static; width: auto; max-height: none; box-shadow: none; margin-top: 6px; }
   .r-cards thead { display: none; }
   .r-cards, .r-cards tbody { display: block; }
   .r-cards tbody { padding: 6px 0; }

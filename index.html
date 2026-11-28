@@ -88,6 +88,24 @@ th[aria-sort="descending"] .r-sortbtn::after { content: "\2193"; opacity: 1; col
 .r-sortby { display: none; font-size: 0.86rem; color: var(--muted); }
 .r-sortby select { font: inherit; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 5px 8px; max-width: 100%; }
 
+/* A filter over the configurations table: a tick box per row, and an unticked row leaves the table. */
+.r-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.r-filter { position: relative; font-size: 0.86rem; }
+.r-filter > summary { list-style: none; cursor: pointer; display: inline-flex; align-items: baseline; gap: 6px; padding: 5px 10px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); color: var(--ink); }
+.r-filter > summary::-webkit-details-marker { display: none; }
+.r-filter > summary::after { content: "\25BE"; color: var(--muted); }
+.r-filter[open] > summary::after { content: "\25B4"; }
+.r-filter > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.r-fcount { color: var(--muted); }
+.r-fmenu { position: absolute; z-index: 15; top: calc(100% + 4px); left: 0; width: 340px; max-width: 88vw; max-height: 60vh; overflow: auto; padding: 10px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.14); }
+.r-fbtns { display: flex; gap: 8px; padding-bottom: 8px; margin-bottom: 6px; border-bottom: 1px solid var(--line); }
+.r-fbtns button { font: inherit; color: var(--ink); background: var(--soft); border: 1px solid var(--line); border-radius: 6px; padding: 2px 9px; cursor: pointer; }
+.r-fitem { display: flex; gap: 8px; align-items: flex-start; padding: 4px 2px; color: var(--ink); cursor: pointer; }
+.r-fitem input { margin: 3px 0 0; }
+.r-fitem b { font-weight: 600; }
+.r-fitem span { display: block; }
+.r-off { display: none !important; }
+
 /* the task page's table: three attempt rows per configuration */
 .r-att tbody { border-top: 2px solid var(--line); }
 .r-att tbody:first-of-type { border-top: 0; }
@@ -164,6 +182,7 @@ details.r-more > * + * { margin-top: 8px; }
 @media (max-width: 700px) {
   .r-sorthint { display: none; }
   .r-sortby { display: grid; gap: 4px; margin: 8px 0 2px; }
+  .r-fmenu { position: static; width: auto; max-height: none; box-shadow: none; margin-top: 6px; }
   .r-cards thead { display: none; }
   .r-cards, .r-cards tbody { display: block; }
   .r-cards tbody { padding: 6px 0; }
@@ -187,76 +206,81 @@ details.r-more > * + * { margin-top: 8px; }
 <p class="r-note">With 2 tasks this page shows how the results read, not which configuration is better: a ranking needs several tasks.</p>
 <h2>Every configuration, over all tasks</h2>
 <p class="r-sub">Ordered by score, then by cost, then by agent time. A score is over the tasks the configuration ran: Tasks run says how many. <span class="r-sorthint">Press a column’s heading to order by it, again to turn the order round, and a third time for this order.</span></p>
+<div class="r-tools">
+<details class="r-filter" data-for="configurations"><summary>Filter <span class="r-fcount">all 12 shown</span></summary>
+<div class="r-fmenu"><div class="r-fbtns"><button type="button" data-fall>Show all</button><button type="button" data-fnone>Show none</button></div>
+<label class="r-fitem"><input type="checkbox" checked data-i="0"><span><b>Haiku 5.5</b><span class="r-muted">Claude Code 2.1.332 · effort high · method none</span></span></label><label class="r-fitem"><input type="checkbox" checked data-i="1"><span><b>Kimi K3.1 Pro</b><span class="r-muted">OpenCode 2.4.2 · no effort setting · method none</span></span></label><label class="r-fitem"><input type="checkbox" checked data-i="2"><span><b>Sonnet 5.5</b><span class="r-muted">Claude Code 2.1.332 · effort high · method none</span></span></label><label class="r-fitem"><input type="checkbox" checked data-i="3"><span><b>Opus 5.5</b><span class="r-muted">Claude Code 2.1.332 · effort high · method none</span></span></label><label class="r-fitem"><input type="checkbox" checked data-i="4"><span><b>Opus 4.6</b><span class="r-muted">Claude Code 2.1.332 · effort high · method none</span></span></label><label class="r-fitem"><input type="checkbox" checked data-i="5"><span><b>Opus 4.8</b><span class="r-muted">Claude Code 2.1.332 · effort high · method none</span></span></label><label class="r-fitem"><input type="checkbox" checked data-i="6"><span><b>Opus 5</b><span class="r-muted">Claude Code 2.1.332 · effort high · method none</span></span></label><label class="r-fitem"><input type="checkbox" checked data-i="7"><span><b>Qwen4 Max</b><span class="r-muted">OpenCode 2.4.2 · no effort setting · method none</span></span></label><label class="r-fitem"><input type="checkbox" checked data-i="8"><span><b>DeepSeek V4.1 Flash</b><span class="r-muted">OpenCode 2.4.2 · no effort setting · method none</span></span></label><label class="r-fitem"><input type="checkbox" checked data-i="9"><span><b>Sonnet 5</b><span class="r-muted">Claude Code 2.1.332 · effort high · method none</span></span></label><label class="r-fitem"><input type="checkbox" checked data-i="10"><span><b>Sonnet 4.6</b><span class="r-muted">Claude Code 2.1.332 · effort high · method none</span></span></label><label class="r-fitem"><input type="checkbox" checked data-i="11"><span><b>Haiku 4.5</b><span class="r-muted">Claude Code 2.1.332 · no effort setting · method none</span></span></label></div></details>
 <label class="r-sortby">Order by <select data-for="configurations"><option value="">Score, then cost, then agent time</option><option value="0:1">Configuration, A to Z</option><option value="1:-1">Score, highest first</option><option value="2:-1">Score on simple tasks, highest first</option><option value="3:-1">Score on medium tasks, highest first</option><option value="4:-1">Score on complex tasks, highest first</option><option value="5:-1">Tasks run, most first</option><option value="6:-1">Attempts run, most first</option><option value="7:1">Cost per task, lowest first</option><option value="8:1">Agent time per task, lowest first</option></select></label>
+</div>
 <div class="r-scroll"><table id="configurations" class="r-table r-sort r-cards r-att r-front">
 <thead><tr><th data-sort="text" data-first="asc" aria-sort="none"><button type="button" class="r-sortbtn"><span>Configuration</span></button></th><th data-sort="num" data-first="desc" aria-sort="none"><button type="button" class="r-sortbtn"><span>Score<br>mean over its tasks</span></button></th><th class="r-n" data-sort="num" data-first="desc" aria-sort="none"><button type="button" class="r-sortbtn"><span>Simple<br>1 task</span></button></th><th class="r-n" data-sort="num" data-first="desc" aria-sort="none"><button type="button" class="r-sortbtn"><span>Medium<br>no task yet</span></button></th><th class="r-n" data-sort="num" data-first="desc" aria-sort="none"><button type="button" class="r-sortbtn"><span>Complex<br>1 task</span></button></th><th class="r-n" data-sort="num" data-first="desc" aria-sort="none"><button type="button" class="r-sortbtn"><span>Tasks<br>run</span></button></th><th class="r-n" data-sort="num" data-first="desc" aria-sort="none"><button type="button" class="r-sortbtn"><span>Attempts<br>run</span></button></th><th class="r-n" data-sort="num" data-first="asc" aria-sort="none"><button type="button" class="r-sortbtn"><span>Cost<br>per task</span></button></th><th class="r-n" data-sort="num" data-first="asc" aria-sort="none"><button type="button" class="r-sortbtn"><span>Agent time<br>per task</span></button></th></tr></thead>
-<tbody><tr><th scope="row" class="r-cfg" data-s="haiku 5.5 claude code high none"><b>Haiku 5.5</b><span class="r-muted">Claude Code 2.1.332</span><span class="r-muted">effort high · method none</span></th>
+<tbody><tr data-i="0"><th scope="row" class="r-cfg" data-s="haiku 5.5 claude code high none"><b>Haiku 5.5</b><span class="r-muted">Claude Code 2.1.332</span><span class="r-muted">effort high · method none</span></th>
 <td data-label="Score, mean over its tasks" class="r-mean" data-s="1"><b>100%</b></td><td data-label="Score, simple tasks" class="r-n" data-s="1"><b>100%</b></td><td data-label="Score, medium tasks" class="r-n" data-s=""><span class="r-muted">n/a</span></td><td data-label="Score, complex tasks" class="r-n" data-s=""><b>–</b><span class="r-muted r-under">not run</span></td>
 <td data-label="Tasks run" class="r-n" data-s="1">1</td>
 <td data-label="Attempts run" class="r-n" data-s="3">3 of 6</td>
 <td data-label="Cost per task" class="r-n" data-s="0.590458"><span class="r-meter"><span class="r-num">$0.59</span><span class="r-bar"><i style="width:4%"></i></span></span></td>
 <td data-label="Agent time per task" class="r-n" data-s="414.667"><span class="r-meter"><span class="r-num">6.9 min</span><span class="r-bar"><i style="width:26%"></i></span></span></td>
-</tr><tr><th scope="row" class="r-cfg" data-s="kimi k3.1 pro opencode  none"><b>Kimi K3.1 Pro</b><span class="r-muted">OpenCode 2.4.2</span><span class="r-muted">no effort setting · method none</span></th>
+</tr><tr data-i="1"><th scope="row" class="r-cfg" data-s="kimi k3.1 pro opencode  none"><b>Kimi K3.1 Pro</b><span class="r-muted">OpenCode 2.4.2</span><span class="r-muted">no effort setting · method none</span></th>
 <td data-label="Score, mean over its tasks" class="r-mean" data-s="1"><b>100%</b></td><td data-label="Score, simple tasks" class="r-n" data-s="1"><b>100%</b></td><td data-label="Score, medium tasks" class="r-n" data-s=""><span class="r-muted">n/a</span></td><td data-label="Score, complex tasks" class="r-n" data-s=""><b>–</b><span class="r-muted r-under">not run</span></td>
 <td data-label="Tasks run" class="r-n" data-s="1">1</td>
 <td data-label="Attempts run" class="r-n" data-s="3">3 of 6</td>
 <td data-label="Cost per task" class="r-n" data-s="1.98349"><span class="r-meter"><span class="r-num">$1.98</span><span class="r-bar"><i style="width:12%"></i></span></span></td>
 <td data-label="Agent time per task" class="r-n" data-s="736.333"><span class="r-meter"><span class="r-num">12.3 min</span><span class="r-bar"><i style="width:47%"></i></span></span></td>
-</tr><tr><th scope="row" class="r-cfg" data-s="sonnet 5.5 claude code high none"><b>Sonnet 5.5</b><span class="r-muted">Claude Code 2.1.332</span><span class="r-muted">effort high · method none</span></th>
+</tr><tr data-i="2"><th scope="row" class="r-cfg" data-s="sonnet 5.5 claude code high none"><b>Sonnet 5.5</b><span class="r-muted">Claude Code 2.1.332</span><span class="r-muted">effort high · method none</span></th>
 <td data-label="Score, mean over its tasks" class="r-mean" data-s="1"><b>100%</b></td><td data-label="Score, simple tasks" class="r-n" data-s="1"><b>100%</b></td><td data-label="Score, medium tasks" class="r-n" data-s=""><span class="r-muted">n/a</span></td><td data-label="Score, complex tasks" class="r-n" data-s="1"><b>100%</b></td>
 <td data-label="Tasks run" class="r-n" data-s="2">2</td>
 <td data-label="Attempts run" class="r-n" data-s="6">6 of 6</td>
 <td data-label="Cost per task" class="r-n" data-s="2.49198"><span class="r-meter"><span class="r-num">$2.49</span><span class="r-bar"><i style="width:15%"></i></span></span></td>
 <td data-label="Agent time per task" class="r-n" data-s="625.167"><span class="r-meter"><span class="r-num">10.4 min</span><span class="r-bar"><i style="width:40%"></i></span></span></td>
-</tr><tr><th scope="row" class="r-cfg" data-s="opus 5.5 claude code high none"><b>Opus 5.5</b><span class="r-muted">Claude Code 2.1.332</span><span class="r-muted">effort high · method none</span></th>
+</tr><tr data-i="3"><th scope="row" class="r-cfg" data-s="opus 5.5 claude code high none"><b>Opus 5.5</b><span class="r-muted">Claude Code 2.1.332</span><span class="r-muted">effort high · method none</span></th>
 <td data-label="Score, mean over its tasks" class="r-mean" data-s="1"><b>100%</b></td><td data-label="Score, simple tasks" class="r-n" data-s="1"><b>100%</b></td><td data-label="Score, medium tasks" class="r-n" data-s=""><span class="r-muted">n/a</span></td><td data-label="Score, complex tasks" class="r-n" data-s=""><b>–</b><span class="r-muted r-under">not run</span></td>
 <td data-label="Tasks run" class="r-n" data-s="1">1</td>
 <td data-label="Attempts run" class="r-n" data-s="3">3 of 6</td>
 <td data-label="Cost per task" class="r-n" data-s="3.21979"><span class="r-meter"><span class="r-num">$3.22</span><span class="r-bar"><i style="width:20%"></i></span></span></td>
 <td data-label="Agent time per task" class="r-n" data-s="539"><span class="r-meter"><span class="r-num">9.0 min</span><span class="r-bar"><i style="width:34%"></i></span></span></td>
-</tr><tr><th scope="row" class="r-cfg" data-s="opus 4.6 claude code high none"><b>Opus 4.6</b><span class="r-muted">Claude Code 2.1.332</span><span class="r-muted">effort high · method none</span></th>
+</tr><tr data-i="4"><th scope="row" class="r-cfg" data-s="opus 4.6 claude code high none"><b>Opus 4.6</b><span class="r-muted">Claude Code 2.1.332</span><span class="r-muted">effort high · method none</span></th>
 <td data-label="Score, mean over its tasks" class="r-mean" data-s="1"><b>100%</b></td><td data-label="Score, simple tasks" class="r-n" data-s="1"><b>100%</b></td><td data-label="Score, medium tasks" class="r-n" data-s=""><span class="r-muted">n/a</span></td><td data-label="Score, complex tasks" class="r-n" data-s=""><b>–</b><span class="r-muted r-under">not run</span></td>
 <td data-label="Tasks run" class="r-n" data-s="1">1</td>
 <td data-label="Attempts run" class="r-n" data-s="3">3 of 6</td>
 <td data-label="Cost per task" class="r-n" data-s="10.5724"><span class="r-meter"><span class="r-num">$10.57</span><span class="r-bar"><i style="width:66%"></i></span></span></td>
 <td data-label="Agent time per task" class="r-n" data-s="741"><span class="r-meter"><span class="r-num">12.3 min</span><span class="r-bar"><i style="width:47%"></i></span></span></td>
-</tr><tr><th scope="row" class="r-cfg" data-s="opus 4.8 claude code high none"><b>Opus 4.8</b><span class="r-muted">Claude Code 2.1.332</span><span class="r-muted">effort high · method none</span></th>
+</tr><tr data-i="5"><th scope="row" class="r-cfg" data-s="opus 4.8 claude code high none"><b>Opus 4.8</b><span class="r-muted">Claude Code 2.1.332</span><span class="r-muted">effort high · method none</span></th>
 <td data-label="Score, mean over its tasks" class="r-mean" data-s="1"><b>100%</b></td><td data-label="Score, simple tasks" class="r-n" data-s="1"><b>100%</b></td><td data-label="Score, medium tasks" class="r-n" data-s=""><span class="r-muted">n/a</span></td><td data-label="Score, complex tasks" class="r-n" data-s=""><b>–</b><span class="r-muted r-under">not run</span></td>
 <td data-label="Tasks run" class="r-n" data-s="1">1</td>
 <td data-label="Attempts run" class="r-n" data-s="3">3 of 6</td>
 <td data-label="Cost per task" class="r-n" data-s="11.1713"><span class="r-meter"><span class="r-num">$11.17</span><span class="r-bar"><i style="width:69%"></i></span></span></td>
 <td data-label="Agent time per task" class="r-n" data-s="1012.33"><span class="r-meter"><span class="r-num">16.9 min</span><span class="r-bar"><i style="width:64%"></i></span></span></td>
-</tr><tr><th scope="row" class="r-cfg" data-s="opus 5 claude code high none"><b>Opus 5</b><span class="r-muted">Claude Code 2.1.332</span><span class="r-muted">effort high · method none</span></th>
+</tr><tr data-i="6"><th scope="row" class="r-cfg" data-s="opus 5 claude code high none"><b>Opus 5</b><span class="r-muted">Claude Code 2.1.332</span><span class="r-muted">effort high · method none</span></th>
 <td data-label="Score, mean over its tasks" class="r-mean" data-s="1"><b>100%</b></td><td data-label="Score, simple tasks" class="r-n" data-s="1"><b>100%</b></td><td data-label="Score, medium tasks" class="r-n" data-s=""><span class="r-muted">n/a</span></td><td data-label="Score, complex tasks" class="r-n" data-s=""><b>–</b><span class="r-muted r-under">not run</span></td>
 <td data-label="Tasks run" class="r-n" data-s="1">1</td>
 <td data-label="Attempts run" class="r-n" data-s="3">3 of 6</td>
 <td data-label="Cost per task" class="r-n" data-s="16.1364"><span class="r-meter"><span class="r-num">$16.14</span><span class="r-bar"><i style="width:100%"></i></span></span></td>
 <td data-label="Agent time per task" class="r-n" data-s="1116"><span class="r-meter"><span class="r-num">18.6 min</span><span class="r-bar"><i style="width:71%"></i></span></span></td>
-</tr><tr><th scope="row" class="r-cfg" data-s="qwen4 max opencode  none"><b>Qwen4 Max</b><span class="r-muted">OpenCode 2.4.2</span><span class="r-muted">no effort setting · method none</span></th>
+</tr><tr data-i="7"><th scope="row" class="r-cfg" data-s="qwen4 max opencode  none"><b>Qwen4 Max</b><span class="r-muted">OpenCode 2.4.2</span><span class="r-muted">no effort setting · method none</span></th>
 <td data-label="Score, mean over its tasks" class="r-mean" data-s="0.992167"><b>99.2%</b></td><td data-label="Score, simple tasks" class="r-n" data-s="1"><b>100%</b></td><td data-label="Score, medium tasks" class="r-n" data-s=""><span class="r-muted">n/a</span></td><td data-label="Score, complex tasks" class="r-n" data-s="0.984333"><b>98.4%</b></td>
 <td data-label="Tasks run" class="r-n" data-s="2">2</td>
 <td data-label="Attempts run" class="r-n" data-s="6">6 of 6</td>
 <td data-label="Cost per task" class="r-n" data-s="1.83346"><span class="r-meter"><span class="r-num">$1.83</span><span class="r-bar"><i style="width:11%"></i></span></span></td>
 <td data-label="Agent time per task" class="r-n" data-s="1149.33"><span class="r-meter"><span class="r-num">19.2 min</span><span class="r-bar"><i style="width:73%"></i></span></span></td>
-</tr><tr><th scope="row" class="r-cfg" data-s="deepseek v4.1 flash opencode  none"><b>DeepSeek V4.1 Flash</b><span class="r-muted">OpenCode 2.4.2</span><span class="r-muted">no effort setting · method none</span></th>
+</tr><tr data-i="8"><th scope="row" class="r-cfg" data-s="deepseek v4.1 flash opencode  none"><b>DeepSeek V4.1 Flash</b><span class="r-muted">OpenCode 2.4.2</span><span class="r-muted">no effort setting · method none</span></th>
 <td data-label="Score, mean over its tasks" class="r-mean" data-s="0.965"><b>96.5%</b></td><td data-label="Score, simple tasks" class="r-n" data-s="1"><b>100%</b></td><td data-label="Score, medium tasks" class="r-n" data-s=""><span class="r-muted">n/a</span></td><td data-label="Score, complex tasks" class="r-n" data-s="0.93"><b>93%</b></td>
 <td data-label="Tasks run" class="r-n" data-s="2">2</td>
 <td data-label="Attempts run" class="r-n" data-s="6">6 of 6</td>
 <td data-label="Cost per task" class="r-n" data-s="0.249466"><span class="r-meter"><span class="r-num">$0.25</span><span class="r-bar"><i style="width:2%"></i></span></span></td>
 <td data-label="Agent time per task" class="r-n" data-s="528.833"><span class="r-meter"><span class="r-num">8.8 min</span><span class="r-bar"><i style="width:34%"></i></span></span></td>
-</tr><tr><th scope="row" class="r-cfg" data-s="sonnet 5 claude code high none"><b>Sonnet 5</b><span class="r-muted">Claude Code 2.1.332</span><span class="r-muted">effort high · method none</span></th>
+</tr><tr data-i="9"><th scope="row" class="r-cfg" data-s="sonnet 5 claude code high none"><b>Sonnet 5</b><span class="r-muted">Claude Code 2.1.332</span><span class="r-muted">effort high · method none</span></th>
 <td data-label="Score, mean over its tasks" class="r-mean" data-s="0.879833"><b>88%</b></td><td data-label="Score, simple tasks" class="r-n" data-s="1"><b>100%</b></td><td data-label="Score, medium tasks" class="r-n" data-s=""><span class="r-muted">n/a</span></td><td data-label="Score, complex tasks" class="r-n" data-s="0.759667"><b>76%</b></td>
 <td data-label="Tasks run" class="r-n" data-s="2">2</td>
 <td data-label="Attempts run" class="r-n" data-s="6">6 of 6</td>
 <td data-label="Cost per task" class="r-n" data-s="11.4851"><span class="r-meter"><span class="r-num">$11.49</span><span class="r-bar"><i style="width:71%"></i></span></span></td>
 <td data-label="Agent time per task" class="r-n" data-s="1578.5"><span class="r-meter"><span class="r-num">26.3 min</span><span class="r-bar"><i style="width:100%"></i></span></span></td>
-</tr><tr><th scope="row" class="r-cfg" data-s="sonnet 4.6 claude code high none"><b>Sonnet 4.6</b><span class="r-muted">Claude Code 2.1.332</span><span class="r-muted">effort high · method none</span></th>
+</tr><tr data-i="10"><th scope="row" class="r-cfg" data-s="sonnet 4.6 claude code high none"><b>Sonnet 4.6</b><span class="r-muted">Claude Code 2.1.332</span><span class="r-muted">effort high · method none</span></th>
 <td data-label="Score, mean over its tasks" class="r-mean" data-s="0.715333"><b>71.5%</b></td><td data-label="Score, simple tasks" class="r-n" data-s="0.965667"><b>96.6%</b></td><td data-label="Score, medium tasks" class="r-n" data-s=""><span class="r-muted">n/a</span></td><td data-label="Score, complex tasks" class="r-n" data-s="0.465"><b>46.5%</b></td>
 <td data-label="Tasks run" class="r-n" data-s="2">2</td>
 <td data-label="Attempts run" class="r-n" data-s="5">5 of 6</td>
 <td data-label="Cost per task" class="r-n" data-s="5.36738"><span class="r-meter"><span class="r-num">$5.37</span><span class="r-bar"><i style="width:33%"></i></span></span></td>
 <td data-label="Agent time per task" class="r-n" data-s="1144.17"><span class="r-meter"><span class="r-num">19.1 min</span><span class="r-bar"><i style="width:72%"></i></span></span></td>
-</tr><tr><th scope="row" class="r-cfg" data-s="haiku 4.5 claude code  none"><b>Haiku 4.5</b><span class="r-muted">Claude Code 2.1.332</span><span class="r-muted">no effort setting · method none</span></th>
+</tr><tr data-i="11"><th scope="row" class="r-cfg" data-s="haiku 4.5 claude code  none"><b>Haiku 4.5</b><span class="r-muted">Claude Code 2.1.332</span><span class="r-muted">no effort setting · method none</span></th>
 <td data-label="Score, mean over its tasks" class="r-mean" data-s="0.333333"><b>33.3%</b></td><td data-label="Score, simple tasks" class="r-n" data-s="0.333333"><b>33.3%</b></td><td data-label="Score, medium tasks" class="r-n" data-s=""><span class="r-muted">n/a</span></td><td data-label="Score, complex tasks" class="r-n" data-s=""><b>–</b><span class="r-muted r-under">not run</span></td>
 <td data-label="Tasks run" class="r-n" data-s="1">1</td>
 <td data-label="Attempts run" class="r-n" data-s="3">3 of 6</td>
@@ -266,7 +290,7 @@ details.r-more > * + * { margin-top: 8px; }
 <p class="r-key"><b>Configuration</b>: a model, the harness it ran in, its effort and its method. A method is what the harness was given to work with: plugins, skills, instructions. With method none it is the harness as installed · <b>Score</b>: per task, hidden tests passed over their total, averaged over the attempts; then averaged over the tasks the configuration ran, each task counting once · <b>Simple, Medium, Complex</b>: the same over the tasks of that type (a task’s type is set before any run, from what the feature touches); n/a while no task of the type exists, – when the configuration ran none of them · <b>Tasks run</b>: of the 2 tasks below · <b>Passed</b>: every hidden test, and the repos’ existing checks (tests, type check, lint) still pass · <b>Attempts</b>: 3 per task and configuration · <b>Cost</b>: for Claude Code its own estimate at API prices (those trials ran on the subscription); for OpenCode the cost the harness reports for its calls to the model&#x27;s provider.</p>
 <h2>Every task</h2>
 <div class="r-scroll"><table class="r-table"><thead><tr><th>Task</th><th>Feature</th><th>Type</th><th class="r-n">Hidden tests</th><th class="r-n">Configurations</th><th class="r-n">Attempts run</th><th class="r-n">Configurations that passed<br>in every attempt</th><th class="r-n">Score, lowest to<br>highest configuration</th></tr></thead><tbody><tr><th scope="row"><a class="r-link" href="tasks/sapor-weight.html">sapor-weight</a></th><td class="r-wrap r-feature">Body weight in Sapor: a morning weigh-in, its 7-day average, a Weight screen, and the weigh-ins for Claude</td><td>simple</td><td class="r-n">29</td><td class="r-n">12</td><td class="r-n">36 of 36</td><td class="r-n">10 of 12</td><td class="r-n">33.3% to 100%</td></tr><tr><th scope="row"><a class="r-link" href="tasks/selfwise-sharing.html">selfwise-sharing</a></th><td class="r-wrap r-feature">Friends and sharing in Selfwise: friends by username, an entry shared with picked friends who accept it, the friend&#x27;s view of it</td><td>complex</td><td class="r-n">43</td><td class="r-n">5</td><td class="r-n">14 of 15</td><td class="r-n">1 of 5</td><td class="r-n">46.5% to 100%</td></tr></tbody></table></div>
-<p class="r-key">Made 2026-11-28 19:34. Every trial ran on one PC, in a container whose only way out is the model’s endpoint. Public pages: the names of the hidden tests, why each failed, the code the agents wrote, the transcripts and the task&#x27;s text are left out.</p>
+<p class="r-key">Made 2026-11-28 19:53. Every trial ran on one PC, in a container whose only way out is the model’s endpoint. Public pages: the names of the hidden tests, why each failed, the code the agents wrote, the transcripts and the task&#x27;s text are left out.</p>
 
 </div></div>
 <div class="r-tipbox" id="tip" hidden></div>
@@ -322,6 +346,28 @@ details.r-more > * + * { margin-top: 8px; }
     if (list) list.addEventListener('change', function () {
       var v = list.value.split(':');
       order(list.value ? +v[0] : 0, list.value ? +v[1] : 0);
+    });
+    var filter = document.querySelector('details.r-filter[data-for="' + table.id + '"]');
+    if (!filter) return;
+    var boxes = Array.prototype.slice.call(filter.querySelectorAll('input[data-i]'));
+    var count = filter.querySelector('.r-fcount');
+    function show() {
+      var shown = 0;
+      boxes.forEach(function (box) {
+        rows[+box.getAttribute('data-i')].classList.toggle('r-off', !box.checked);
+        if (box.checked) shown++;
+      });
+      count.textContent = shown === rows.length ? 'all ' + rows.length + ' shown'
+        : shown + ' of ' + rows.length + ' shown';
+    }
+    boxes.forEach(function (box) { box.addEventListener('change', show); });
+    filter.querySelector('[data-fall]').addEventListener('click', function () {
+      boxes.forEach(function (box) { box.checked = true; });
+      show();
+    });
+    filter.querySelector('[data-fnone]').addEventListener('click', function () {
+      boxes.forEach(function (box) { box.checked = false; });
+      show();
     });
   });
 })();
