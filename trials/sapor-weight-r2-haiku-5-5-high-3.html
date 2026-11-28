@@ -74,6 +74,19 @@ h1.r-h { font-size: 1.4rem; font-weight: 600; line-height: 1.25; display: flex; 
 .r-table td.r-wrap { white-space: normal; min-width: 12em; }
 .r-num { font-variant-numeric: tabular-nums; }
 .r-bad { color: var(--bad); font-weight: 600; }
+/* A text with more behind it: the tip shows on hover, on focus and on a press. */
+.r-hint { cursor: help; text-decoration: underline dotted; text-underline-offset: 3px; }
+.r-hint:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+/* A table whose rows can be ordered by a column: the heading is a button, the arrow says which way. */
+.r-sortbtn { font: inherit; color: inherit; letter-spacing: inherit; text-transform: inherit; text-align: inherit; background: none; border: 0; padding: 0; margin: 0; cursor: pointer; display: inline-flex; align-items: flex-end; gap: 4px; }
+.r-sortbtn::after { content: "\2195"; opacity: 0.4; font-size: 1.05em; line-height: 1.2; }
+.r-sortbtn:hover, th[aria-sort="ascending"] .r-sortbtn, th[aria-sort="descending"] .r-sortbtn { color: var(--ink); }
+.r-sortbtn:hover::after { opacity: 0.8; }
+th[aria-sort="ascending"] .r-sortbtn::after { content: "\2191"; opacity: 1; color: var(--accent); }
+th[aria-sort="descending"] .r-sortbtn::after { content: "\2193"; opacity: 1; color: var(--accent); }
+.r-sortbtn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.r-sortby { display: none; font-size: 0.86rem; color: var(--muted); }
+.r-sortby select { font: inherit; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 5px 8px; max-width: 100%; }
 
 /* the task page's table: three attempt rows per configuration */
 .r-att tbody { border-top: 2px solid var(--line); }
@@ -95,6 +108,8 @@ h1.r-h { font-size: 1.4rem; font-weight: 600; line-height: 1.25; display: flex; 
 .r-fail, .r-error { background: var(--bad-bg); border-color: var(--bad); }
 
 .r-strip { display: inline-flex; gap: 4px; vertical-align: middle; }
+/* In a table of attempts a long strip goes onto more lines, part by part, so the table stays on the page. */
+.r-att .r-score .r-strip { flex-wrap: wrap; row-gap: 3px; max-width: 360px; }
 .r-sqg { display: inline-flex; gap: 2px; }
 .r-sq { display: inline-block; width: 6px; height: 14px; border-radius: 2px; }
 .r-sq-ok { background: var(--good); }
@@ -151,6 +166,8 @@ details.r-more > * + * { margin-top: 8px; }
 .r-tipbox { position: fixed; z-index: 20; max-width: 280px; background: var(--ink); color: var(--bg); font-size: 0.8rem; padding: 6px 9px; border-radius: 6px; pointer-events: none; }
 
 @media (max-width: 700px) {
+  .r-sorthint { display: none; }
+  .r-sortby { display: grid; gap: 4px; margin: 8px 0 2px; }
   .r-cards thead { display: none; }
   .r-cards, .r-cards tbody { display: block; }
   .r-cards tbody { padding: 6px 0; }
@@ -216,4 +233,5 @@ details.r-more > * + * { margin-top: 8px; }
   window.addEventListener('scroll', hide, { passive: true });
 })();
 </script>
+
 </html>
